@@ -414,60 +414,129 @@ function initHero3DPC() {
 
   // Define components in 3D space (perfectly centered around X=0)
   const components = {
+    // 3D Office Table (Tabletop and Legs)
+    table: {
+      top: [
+        {x: -1.3, y: -0.65, z: -0.6}, // 0: Top Front Left
+        {x:  1.3, y: -0.65, z: -0.6}, // 1: Top Front Right
+        {x:  1.2, y: -0.65, z:  0.4}, // 2: Top Back Right
+        {x: -1.2, y: -0.65, z:  0.4}, // 3: Top Back Left
+        
+        {x: -1.3, y: -0.69, z: -0.58}, // 4: Bottom Front Left
+        {x:  1.3, y: -0.69, z: -0.58}, // 5: Bottom Front Right
+        {x:  1.2, y: -0.69, z:  0.38}, // 6: Bottom Back Right
+        {x: -1.2, y: -0.69, z:  0.38}  // 7: Bottom Back Left
+      ],
+      legs: [
+        { start: {x: -1.18, y: -0.69, z: -0.48}, end: {x: -1.18, y: -1.35, z: -0.48} }, // Front Left
+        { start: {x:  1.18, y: -0.69, z: -0.48}, end: {x:  1.18, y: -1.35, z: -0.48} }, // Front Right
+        { start: {x:  1.10, y: -0.69, z:  0.32}, end: {x:  1.10, y: -1.35, z:  0.32} }, // Back Right
+        { start: {x: -1.10, y: -0.69, z:  0.32}, end: {x: -1.10, y: -1.35, z:  0.32} }  // Back Left
+      ]
+    },
+    // Monitor (Centered slightly left at X = -0.2)
     monitor: {
-      // Curved screen bezel front (ends curve forward in Z)
+      // Front bezel points (ends curve forward in Z)
       front: [
-        {x: -0.75, y:  0.42, z: -0.08}, // 0: Top-left
-        {x: -0.25, y:  0.42, z:  0.02}, // 1: Top-mid-left
-        {x:  0.25, y:  0.42, z:  0.02}, // 2: Top-mid-right
-        {x:  0.75, y:  0.42, z: -0.08}, // 3: Top-right
-        {x:  0.75, y: -0.25, z: -0.08}, // 4: Bottom-right
-        {x:  0.25, y: -0.25, z:  0.02}, // 5: Bottom-mid-right
-        {x: -0.25, y: -0.25, z:  0.02}, // 6: Bottom-mid-left
-        {x: -0.75, y: -0.25, z: -0.08}  // 7: Bottom-left
+        {x: -0.75, y:  0.42, z: -0.15}, // 0: Top-left
+        {x: -0.28, y:  0.42, z: -0.04}, // 1: Top-mid-left
+        {x:  0.20, y:  0.42, z: -0.04}, // 2: Top-mid-right
+        {x:  0.68, y:  0.42, z: -0.15}, // 3: Top-right
+        {x:  0.68, y: -0.30, z: -0.15}, // 4: Bottom-right
+        {x:  0.20, y: -0.30, z: -0.04}, // 5: Bottom-mid-right
+        {x: -0.28, y: -0.30, z: -0.04}, // 6: Bottom-mid-left
+        {x: -0.75, y: -0.30, z: -0.15}  // 7: Bottom-left
       ],
       // Back bezel cover
       back: [
-        {x: -0.75, y:  0.42, z:  0.02}, // 8: Top-left back
-        {x: -0.25, y:  0.42, z:  0.12}, // 9: Top-mid-left back
-        {x:  0.25, y:  0.42, z:  0.12}, // 10: Top-mid-right back
-        {x:  0.75, y:  0.42, z:  0.02}, // 11: Top-right back
-        {x:  0.75, y: -0.25, z:  0.02}, // 12: Bottom-right back
-        {x:  0.25, y: -0.25, z:  0.12}, // 13: Bottom-mid-right back
-        {x: -0.25, y: -0.25, z:  0.12}, // 14: Bottom-mid-left back
-        {x: -0.75, y: -0.25, z:  0.02}  // 15: Bottom-left back
+        {x: -0.75, y:  0.42, z: -0.05}, // 8: Top-left back
+        {x: -0.28, y:  0.42, z:  0.06}, // 9: Top-mid-left back
+        {x:  0.20, y:  0.42, z:  0.06}, // 10: Top-mid-right back
+        {x:  0.68, y:  0.42, z: -0.05}, // 11: Top-right back
+        {x:  0.68, y: -0.30, z: -0.05}, // 12: Bottom-right back
+        {x:  0.20, y: -0.30, z:  0.06}, // 13: Bottom-mid-right back
+        {x: -0.28, y: -0.30, z:  0.06}, // 14: Bottom-mid-left back
+        {x: -0.75, y: -0.30, z: -0.05}  // 15: Bottom-left back
       ],
-      // Screen contents display mesh
+      // Display panel mesh
       display: [
-        {x: -0.71, y:  0.38, z: -0.07}, // 0: TL
-        {x: -0.24, y:  0.38, z:  0.02}, // 1: TML
-        {x:  0.24, y:  0.38, z:  0.02}, // 2: TMR
-        {x:  0.71, y:  0.38, z: -0.07}, // 3: TR
-        {x:  0.71, y: -0.21, z: -0.07}, // 4: BR
-        {x:  0.24, y: -0.21, z:  0.02}, // 5: BMR
-        {x: -0.24, y: -0.21, z:  0.02}, // 6: BML
-        {x: -0.71, y: -0.21, z: -0.07}  // 7: BL
+        {x: -0.71, y:  0.38, z: -0.14}, // 0: TL
+        {x: -0.26, y:  0.38, z: -0.04}, // 1: TML
+        {x:  0.18, y:  0.38, z: -0.04}, // 2: TMR
+        {x:  0.64, y:  0.38, z: -0.14}, // 3: TR
+        {x:  0.64, y: -0.26, z: -0.14}, // 4: BR
+        {x:  0.18, y: -0.26, z: -0.04}, // 5: BMR
+        {x: -0.26, y: -0.26, z: -0.04}, // 6: BML
+        {x: -0.71, y: -0.26, z: -0.14}  // 7: BL
       ],
       stand: [
-        // Neck
-        {x: -0.06, y: -0.25, z:  0.07}, // 0: neck top left
-        {x:  0.06, y: -0.25, z:  0.07}, // 1: neck top right
-        {x: -0.05, y: -0.62, z:  0.15}, // 2: neck bottom left
-        {x:  0.05, y: -0.62, z:  0.15}, // 3: neck bottom right
-        // Trapezoidal Desk Base
-        {x: -0.22, y: -0.65, z: -0.10}, // 4: base front left
-        {x:  0.22, y: -0.65, z: -0.10}, // 5: base front right
-        {x:  0.18, y: -0.65, z:  0.22}, // 6: base back right
-        {x: -0.18, y: -0.65, z:  0.22}  // 7: base back left
+        // Neck (placed behind curved screen)
+        {x: -0.24, y: -0.25, z:  0.05}, // 0: Neck Top Left
+        {x: -0.16, y: -0.25, z:  0.05}, // 1: Neck Top Right
+        {x: -0.24, y: -0.62, z:  0.12}, // 2: Neck Bot Left
+        {x: -0.16, y: -0.62, z:  0.12}, // 3: Neck Bot Right
+        // Heavy Trapezoidal Desk Stand Base
+        {x: -0.42, y: -0.65, z: -0.05}, // 4: Base Front Left
+        {x: -0.06, y: -0.65, z: -0.05}, // 5: Base Front Right
+        {x: -0.08, y: -0.65, z:  0.22}, // 6: Base Back Right
+        {x: -0.40, y: -0.65, z:  0.22}  // 7: Base Back Left
       ]
     },
+    // PC Tower Cabinet (placed on the right side)
+    cabinet: {
+      box: [
+        {x: 0.78, y: -0.65, z: -0.20}, // 0: Bottom-left-front
+        {x: 1.12, y: -0.65, z: -0.20}, // 1: Bottom-right-front
+        {x: 1.12, y: -0.65, z:  0.35}, // 2: Bottom-right-back
+        {x: 0.78, y: -0.65, z:  0.35}, // 3: Bottom-left-back
+        
+        {x: 0.78, y:  0.20, z: -0.20}, // 4: Top-left-front
+        {x: 1.12, y:  0.20, z: -0.20}, // 5: Top-right-front
+        {x: 1.12, y:  0.20, z:  0.35}, // 6: Top-right-back
+        {x: 0.78, y:  0.20, z:  0.35}  // 7: Top-left-back
+      ],
+      // GPU inside the glass panel
+      gpu: [
+        {x: 0.80, y: -0.38, z:  0.02}, // 0
+        {x: 1.08, y: -0.38, z:  0.02}, // 1
+        {x: 1.08, y: -0.28, z:  0.02}, // 2
+        {x: 0.80, y: -0.28, z:  0.02}, // 3
+        
+        {x: 0.80, y: -0.38, z:  0.18}, // 4
+        {x: 1.08, y: -0.38, z:  0.18}, // 5
+        {x: 1.08, y: -0.28, z:  0.18}, // 6
+        {x: 0.80, y: -0.28, z:  0.18}  // 7
+      ],
+      // Cooling fans (front-facing)
+      fans: [
+        {x: 0.95, y: -0.12, z: -0.20}, // Fan 1 (Front top)
+        {x: 0.95, y: -0.42, z: -0.20}  // Fan 2 (Front bottom)
+      ],
+      // GPU cooling fans (facing outwards)
+      gpuFans: [
+        {x: 0.88, y: -0.28, z:  0.09},
+        {x: 1.00, y: -0.28, z:  0.09}
+      ]
+    },
+    // Mechanical Keyboard
     keyboard: {
       plate: [
-        {x: -0.52, y: -0.65, z: -0.55}, // 0: TL
-        {x:  0.52, y: -0.65, z: -0.55}, // 1: TR
-        {x:  0.48, y: -0.65, z: -0.25}, // 2: BR
-        {x: -0.48, y: -0.65, z: -0.25}  // 3: BL
+        {x: -0.52, y: -0.65, z: -0.52}, // 0: TL
+        {x:  0.12, y: -0.65, z: -0.52}, // 1: TR
+        {x:  0.08, y: -0.65, z: -0.28}, // 2: BR
+        {x: -0.48, y: -0.65, z: -0.28}  // 3: BL
       ]
+    },
+    // Gaming Mouse & Mouse Pad
+    mousePad: [
+      {x: 0.16, y: -0.65, z: -0.54}, // TL
+      {x: 0.38, y: -0.65, z: -0.54}, // TR
+      {x: 0.36, y: -0.65, z: -0.30}, // BR
+      {x: 0.14, y: -0.65, z: -0.30}  // BL
+    ],
+    mouse: {
+      center: {x: 0.28, y: -0.65, z: -0.42},
+      sizeOffset: {x: 0.05, y: 0, z: 0.07}
     }
   };
 
@@ -563,12 +632,12 @@ function initHero3DPC() {
     let z2 = v.x * sinY + z1 * cosY;
     
     // Perspective scale
-    let distance = 1.6;
+    let distance = 1.75;
     let scale = 1 / (z2 + distance);
     
     return {
       x: x2 * scale * sizeFactor + centerX,
-      y: -y1 * scale * sizeFactor + centerY + (sizeFactor * 0.08),
+      y: -y1 * scale * sizeFactor + centerY + (sizeFactor * 0.15),
       z: z2,
       scale: scale
     };
@@ -590,26 +659,38 @@ function initHero3DPC() {
     }
   }
 
-  // Scrolling code terminal text lines
-  const mockCode = [
-    "const portfolio = new Developer('Mayank');",
-    "await portfolio.connectSystem();",
-    "portfolio.status = 'ACTIVE';",
-    "portfolio.skills = ['Web', 'Android', 'ML'];",
-    "console.log('INIT VOLCANIC SETUP...');",
-    "for (let item of portfolio.skills) {",
-    "  console.log('Mounting ' + item + '...');",
-    "}",
-    "// System online. Deploy target: Vercel.",
-    "fetch('https://api.web3forms.com/submit')",
-    "  .then(res => res.json())",
-    "  .then(sys => sys.verified = true);",
-    "// CPU Temp: 38C | RAM: 14.2GB / 32GB"
+  // Scrolling code terminal text lines (IDE contents)
+  const sidebarLines = [
+    "📁 PORTFOLIO",
+    "  📁 src",
+    "    📄 index.html",
+    "    📄 styles.css",
+    "    📄 script.js",
+    "  📄 package.json"
   ];
+  const editorCode = [
+    "import { Mayank } from './dev';",
+    "const developer = new Mayank({",
+    "  role: 'Fullstack Systems',",
+    "  location: 'India',",
+    "  skills: ['React', 'Android', 'ML']",
+    "});",
+    "developer.mountPortfolio();",
+    "// Compiling components successfully..."
+  ];
+  const terminalLogs = [
+    "mayank@dev:~$ npm run dev",
+    "Server active at http://localhost:3000",
+    "Web3Forms submit API: CONNECTED",
+    "[Sys Status: RUNNING PROD]"
+  ];
+
   let textScrollTimer = 0;
   let textScrollIndex = 0;
 
   // Animation Loop
+  let fanAngle = 0;
+
   function animate() {
     ctx.clearRect(0, 0, width, height);
     
@@ -626,10 +707,11 @@ function initHero3DPC() {
     }
     
     rotX = Math.max(-0.4, Math.min(0.5, rotX));
+    fanAngle += 0.06;
     textScrollTimer += 1;
-    if (textScrollTimer > 60) {
+    if (textScrollTimer > 80) {
       textScrollTimer = 0;
-      textScrollIndex = (textScrollIndex + 1) % mockCode.length;
+      textScrollIndex = (textScrollIndex + 1) % terminalLogs.length;
     }
     
     const centerX = width / 2;
@@ -641,25 +723,104 @@ function initHero3DPC() {
       return pts.map(p => project(p, rotX, rotY, centerX, centerY, sizeFactor));
     }
     
-    // 1. Draw glowing ambient desk light ring (LED ring under stand)
-    ctx.strokeStyle = 'rgba(124, 58, 237, 0.22)';
-    ctx.shadowColor = '#7C3AED';
-    ctx.shadowBlur = 15;
+    // 1. Draw Table Legs (Double-post structure)
+    ctx.strokeStyle = 'rgba(124, 58, 237, 0.25)';
     ctx.lineWidth = 1.8;
+    components.table.legs.forEach(leg => {
+      let pStart = project(leg.start, rotX, rotY, centerX, centerY, sizeFactor);
+      let pEnd = project(leg.end, rotX, rotY, centerX, centerY, sizeFactor);
+      ctx.beginPath();
+      ctx.moveTo(pStart.x, pStart.y);
+      ctx.lineTo(pEnd.x, pEnd.y);
+      ctx.stroke();
+      
+      // Double pillar offset
+      let startOffset = { x: leg.start.x + 0.03, y: leg.start.y, z: leg.start.z + 0.03 };
+      let endOffset = { x: leg.end.x + 0.03, y: leg.end.y, z: leg.end.z + 0.03 };
+      let pStartOffset = project(startOffset, rotX, rotY, centerX, centerY, sizeFactor);
+      let pEndOffset = project(endOffset, rotX, rotY, centerX, centerY, sizeFactor);
+      ctx.beginPath();
+      ctx.moveTo(pStartOffset.x, pStartOffset.y);
+      ctx.lineTo(pEndOffset.x, pEndOffset.y);
+      ctx.stroke();
+    });
+
+    // 2. Draw Tabletop Slab (filled glass panel)
+    const pT = projectGroup(components.table.top);
+    
+    // Bottom thickness slab loop
+    ctx.fillStyle = 'rgba(15, 15, 20, 0.9)';
     ctx.beginPath();
-    for (let a = 0; a <= Math.PI * 2; a += 0.2) {
-      let pt = project({x: Math.cos(a) * 0.62, y: -0.65, z: 0.1 + Math.sin(a) * 0.52}, rotX, rotY, centerX, centerY, sizeFactor);
-      if (a === 0) ctx.moveTo(pt.x, pt.y);
-      else ctx.lineTo(pt.x, pt.y);
+    ctx.moveTo(pT[4].x, pT[4].y);
+    ctx.lineTo(pT[5].x, pT[5].y);
+    ctx.lineTo(pT[6].x, pT[6].y);
+    ctx.lineTo(pT[7].x, pT[7].y);
+    ctx.closePath();
+    ctx.fill();
+
+    // Top surface
+    let tableGrad = ctx.createLinearGradient(pT[0].x, pT[0].y, pT[2].x, pT[2].y);
+    tableGrad.addColorStop(0, 'rgba(25, 25, 35, 0.96)');
+    tableGrad.addColorStop(1, 'rgba(12, 12, 18, 0.98)');
+    ctx.fillStyle = tableGrad;
+    ctx.strokeStyle = 'rgba(124, 58, 237, 0.4)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(pT[0].x, pT[0].y);
+    ctx.lineTo(pT[1].x, pT[1].y);
+    ctx.lineTo(pT[2].x, pT[2].y);
+    ctx.lineTo(pT[3].x, pT[3].y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Draw grid stripes on tabletop
+    ctx.strokeStyle = 'rgba(34, 211, 238, 0.06)';
+    ctx.lineWidth = 1;
+    for (let i = 1; i <= 6; i++) {
+      let t = i / 7;
+      let left = interpolate(components.table.top[0], components.table.top[3], t);
+      let right = interpolate(components.table.top[1], components.table.top[2], t);
+      let pL = project(left, rotX, rotY, centerX, centerY, sizeFactor);
+      let pR = project(right, rotX, rotY, centerX, centerY, sizeFactor);
+      ctx.beginPath();
+      ctx.moveTo(pL.x, pL.y);
+      ctx.lineTo(pR.x, pR.y);
+      ctx.stroke();
     }
+
+    // Connect Top to Bottom tabletop slab edges
+    ctx.fillStyle = 'rgba(15, 15, 20, 0.95)';
+    ctx.strokeStyle = 'rgba(124, 58, 237, 0.4)';
+    ctx.beginPath();
+    ctx.moveTo(pT[0].x, pT[0].y);
+    ctx.lineTo(pT[1].x, pT[1].y);
+    ctx.lineTo(pT[5].x, pT[5].y);
+    ctx.lineTo(pT[4].x, pT[4].y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // 3. Draw Mechanical Keyboard & keys
+    const pKb = projectGroup(components.keyboard.plate);
+    
+    // Keyboard backlight glow
+    ctx.save();
+    ctx.strokeStyle = 'rgba(168, 85, 247, 0.3)';
+    ctx.shadowColor = 'rgba(168, 85, 247, 0.7)';
+    ctx.shadowBlur = 6;
+    ctx.beginPath();
+    ctx.moveTo(pKb[0].x, pKb[0].y);
+    ctx.lineTo(pKb[1].x, pKb[1].y);
+    ctx.lineTo(pKb[2].x, pKb[2].y);
+    ctx.lineTo(pKb[3].x, pKb[3].y);
     ctx.closePath();
     ctx.stroke();
-    ctx.shadowBlur = 0; // reset shadow for other renders
+    ctx.restore();
 
-    // 2. Draw Keyboard
-    const pKb = projectGroup(components.keyboard.plate);
-    ctx.fillStyle = 'rgba(10, 10, 15, 0.65)';
-    ctx.strokeStyle = 'rgba(124, 58, 237, 0.4)';
+    // Keyboard Plate base
+    ctx.fillStyle = 'rgba(12, 12, 18, 0.9)';
+    ctx.strokeStyle = 'rgba(124, 58, 237, 0.6)';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.moveTo(pKb[0].x, pKb[0].y);
@@ -670,9 +831,11 @@ function initHero3DPC() {
     ctx.fill();
     ctx.stroke();
 
-    // Draw keyboard key stripes
-    ctx.strokeStyle = 'rgba(34, 211, 238, 0.15)';
-    let keyRows = 4;
+    // Keyboard Keycaps (Grid of rows and columns)
+    ctx.strokeStyle = 'rgba(34, 211, 238, 0.2)';
+    ctx.lineWidth = 0.8;
+    // Rows
+    let keyRows = 5;
     for (let i = 1; i < keyRows; i++) {
       let t = i / keyRows;
       let left = interpolate(components.keyboard.plate[0], components.keyboard.plate[3], t);
@@ -684,14 +847,81 @@ function initHero3DPC() {
       ctx.lineTo(pR.x, pR.y);
       ctx.stroke();
     }
+    // Columns (Vertical keycaps dividers)
+    let keyCols = 15;
+    for (let j = 1; j < keyCols; j++) {
+      let s = j / keyCols;
+      let top = interpolate(components.keyboard.plate[0], components.keyboard.plate[1], s);
+      let bottom = interpolate(components.keyboard.plate[3], components.keyboard.plate[2], s);
+      let pT = project(top, rotX, rotY, centerX, centerY, sizeFactor);
+      let pB = project(bottom, rotX, rotY, centerX, centerY, sizeFactor);
+      ctx.beginPath();
+      ctx.moveTo(pT.x, pT.y);
+      ctx.lineTo(pB.x, pB.y);
+      ctx.stroke();
+    }
+    
+    // 3.5 Draw Mouse Pad
+    const pPad = projectGroup(components.mousePad);
+    ctx.fillStyle = 'rgba(15, 15, 22, 0.85)';
+    ctx.strokeStyle = 'rgba(34, 211, 238, 0.3)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pPad[0].x, pPad[0].y);
+    for (let i = 1; i < 4; i++) ctx.lineTo(pPad[i].x, pPad[i].y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
 
-    // 3. Draw Monitor Stand
+    // 4. Draw Mouse (Professional Gaming Mouse details)
+    const pMouseCenter = project(components.mouse.center, rotX, rotY, centerX, centerY, sizeFactor);
+    const pMouseSize = project({
+      x: components.mouse.center.x + components.mouse.sizeOffset.x,
+      y: components.mouse.center.y,
+      z: components.mouse.center.z + components.mouse.sizeOffset.z
+    }, rotX, rotY, centerX, centerY, sizeFactor);
+    
+    const mouseRadius = Math.abs(pMouseSize.x - pMouseCenter.x);
+    
+    // Mouse Main Shell
+    ctx.fillStyle = 'rgba(10, 10, 15, 0.95)';
+    ctx.strokeStyle = 'rgba(34, 211, 238, 0.55)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.ellipse(pMouseCenter.x, pMouseCenter.y, mouseRadius, mouseRadius * 1.5, Math.atan2(pMouseSize.y - pMouseCenter.y, pMouseSize.x - pMouseCenter.x), 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+
+    // Mouse details: Left/Right click division line
+    let pMouseFront = project({x: components.mouse.center.x, y: components.mouse.center.y, z: components.mouse.center.z - 0.065}, rotX, rotY, centerX, centerY, sizeFactor);
+    let pMouseMid = project({x: components.mouse.center.x, y: components.mouse.center.y, z: components.mouse.center.z}, rotX, rotY, centerX, centerY, sizeFactor);
+    ctx.strokeStyle = 'rgba(34, 211, 238, 0.35)';
+    ctx.beginPath();
+    ctx.moveTo(pMouseFront.x, pMouseFront.y);
+    ctx.lineTo(pMouseMid.x, pMouseMid.y);
+    ctx.stroke();
+
+    // Mouse details: Glowing Scroll Wheel
+    let pWheelStart = project({x: components.mouse.center.x, y: components.mouse.center.y + 0.005, z: components.mouse.center.z - 0.05}, rotX, rotY, centerX, centerY, sizeFactor);
+    let pWheelEnd = project({x: components.mouse.center.x, y: components.mouse.center.y + 0.005, z: components.mouse.center.z - 0.025}, rotX, rotY, centerX, centerY, sizeFactor);
+    ctx.save();
+    ctx.strokeStyle = '#22D3EE';
+    ctx.lineWidth = 2.2;
+    ctx.shadowColor = '#22D3EE';
+    ctx.shadowBlur = 4;
+    ctx.beginPath();
+    ctx.moveTo(pWheelStart.x, pWheelStart.y);
+    ctx.lineTo(pWheelEnd.x, pWheelEnd.y);
+    ctx.stroke();
+    ctx.restore();
+
+    // 5. Draw Monitor Stand Base & Neck
     const pStand = projectGroup(components.monitor.stand);
-    ctx.fillStyle = 'rgba(15, 15, 20, 0.85)';
+    ctx.fillStyle = 'rgba(15, 15, 20, 0.88)';
     ctx.strokeStyle = 'rgba(124, 58, 237, 0.6)';
     ctx.lineWidth = 1.5;
     
-    // Base loop
+    // Stand base
     ctx.beginPath();
     ctx.moveTo(pStand[4].x, pStand[4].y);
     ctx.lineTo(pStand[5].x, pStand[5].y);
@@ -701,7 +931,7 @@ function initHero3DPC() {
     ctx.fill();
     ctx.stroke();
     
-    // Neck loop
+    // Stand neck
     ctx.beginPath();
     ctx.moveTo(pStand[0].x, pStand[0].y);
     ctx.lineTo(pStand[2].x, pStand[2].y);
@@ -711,7 +941,183 @@ function initHero3DPC() {
     ctx.fill();
     ctx.stroke();
 
-    // 4. Draw Monitor back cover (solid solid-feeling back panel)
+    // 6. Draw PC Tower Cabinet (CPU)
+    const pCab = projectGroup(components.cabinet.box);
+    ctx.fillStyle = 'rgba(10, 10, 15, 0.8)';
+    ctx.strokeStyle = 'rgba(124, 58, 237, 0.65)';
+    ctx.lineWidth = 1.5;
+    
+    // Bottom cover fill
+    ctx.beginPath();
+    ctx.moveTo(pCab[0].x, pCab[0].y);
+    ctx.lineTo(pCab[1].x, pCab[1].y);
+    ctx.lineTo(pCab[2].x, pCab[2].y);
+    ctx.lineTo(pCab[3].x, pCab[3].y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    
+    // Top cover fill
+    ctx.beginPath();
+    ctx.moveTo(pCab[4].x, pCab[4].y);
+    ctx.lineTo(pCab[5].x, pCab[5].y);
+    ctx.lineTo(pCab[6].x, pCab[6].y);
+    ctx.lineTo(pCab[7].x, pCab[7].y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Vertical structural pillars
+    ctx.beginPath();
+    for (let i = 0; i < 4; i++) {
+      ctx.moveTo(pCab[i].x, pCab[i].y);
+      ctx.lineTo(pCab[i+4].x, pCab[i+4].y);
+    }
+    ctx.stroke();
+
+    // 6.2 Motherboard and RAM outline (Vertical tray at x = 1.10)
+    const mb = [
+      {x: 1.10, y:  0.18, z: -0.15}, // TL
+      {x: 1.10, y:  0.18, z:  0.30}, // TR
+      {x: 1.10, y: -0.55, z:  0.30}, // BR
+      {x: 1.10, y: -0.55, z: -0.15}  // BL
+    ];
+    const pMb = mb.map(p => project(p, rotX, rotY, centerX, centerY, sizeFactor));
+    ctx.strokeStyle = 'rgba(124, 58, 237, 0.22)';
+    ctx.lineWidth = 1.0;
+    ctx.beginPath();
+    ctx.moveTo(pMb[0].x, pMb[0].y);
+    for (let i = 1; i < 4; i++) ctx.lineTo(pMb[i].x, pMb[i].y);
+    ctx.closePath();
+    ctx.stroke();
+
+    // Glowing RGB RAM modules (4 sticks next to CPU socket area)
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = 'rgba(168, 85, 247, 0.7)'; // purple RGB RAM
+    ctx.shadowColor = 'rgba(168, 85, 247, 0.6)';
+    ctx.shadowBlur = 4;
+    for (let r = 0; r < 4; r++) {
+      let ramZ = 0.04 + (r * 0.02);
+      let pRamTop = project({x: 1.10, y: 0.04, z: ramZ}, rotX, rotY, centerX, centerY, sizeFactor);
+      let pRamBot = project({x: 1.10, y: -0.10, z: ramZ}, rotX, rotY, centerX, centerY, sizeFactor);
+      ctx.beginPath();
+      ctx.moveTo(pRamTop.x, pRamTop.y);
+      ctx.lineTo(pRamBot.x, pRamBot.y);
+      ctx.stroke();
+    }
+    ctx.shadowBlur = 0; // reset
+
+    // 6.3 GPU Outline inside Cabinet
+    const pGpu = projectGroup(components.cabinet.gpu);
+    ctx.fillStyle = 'rgba(239, 68, 68, 0.05)';
+    ctx.strokeStyle = 'rgba(239, 68, 68, 0.45)';
+    ctx.lineWidth = 1.0;
+    // GPU Bottom
+    ctx.beginPath();
+    ctx.moveTo(pGpu[0].x, pGpu[0].y);
+    for (let i = 1; i < 4; i++) ctx.lineTo(pGpu[i].x, pGpu[i].y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    // GPU Top
+    ctx.beginPath();
+    ctx.moveTo(pGpu[4].x, pGpu[4].y);
+    for (let i = 5; i < 8; i++) ctx.lineTo(pGpu[i].x, pGpu[i].y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    // GPU Verticals
+    ctx.beginPath();
+    for (let i = 0; i < 4; i++) {
+      ctx.moveTo(pGpu[i].x, pGpu[i].y);
+      ctx.lineTo(pGpu[i+4].x, pGpu[i+4].y);
+    }
+    ctx.stroke();
+
+    // 6.4 GPU cooling fans (facing upwards on the top surface of the GPU block)
+    components.cabinet.gpuFans.forEach(fCenter => {
+      let pCenter = project(fCenter, rotX, rotY, centerX, centerY, sizeFactor);
+      
+      // Fan outer ring in 3D
+      ctx.strokeStyle = 'rgba(239, 68, 68, 0.4)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      let steps = 12;
+      for (let s = 0; s <= steps; s++) {
+        let theta = (s / steps) * Math.PI * 2;
+        let ringPt = {
+          x: fCenter.x + 0.045 * Math.cos(theta),
+          y: fCenter.y,
+          z: fCenter.z + 0.045 * Math.sin(theta)
+        };
+        let pRing = project(ringPt, rotX, rotY, centerX, centerY, sizeFactor);
+        if (s === 0) ctx.moveTo(pRing.x, pRing.y);
+        else ctx.lineTo(pRing.x, pRing.y);
+      }
+      ctx.stroke();
+
+      // Rotating blades in 3D
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
+      ctx.lineWidth = 1.2;
+      for (let j = 0; j < 3; j++) {
+        let angle = -fanAngle + (j * (Math.PI * 2 / 3)); // rotating backwards for style
+        let bladeEnd = {
+          x: fCenter.x + 0.04 * Math.cos(angle),
+          y: fCenter.y,
+          z: fCenter.z + 0.04 * Math.sin(angle)
+        };
+        let pEnd = project(bladeEnd, rotX, rotY, centerX, centerY, sizeFactor);
+        ctx.beginPath();
+        ctx.moveTo(pCenter.x, pCenter.y);
+        ctx.lineTo(pEnd.x, pEnd.y);
+        ctx.stroke();
+      }
+    });
+
+    // 7. Rotating Cooling Fans in Cabinet (Front intake fans)
+    components.cabinet.fans.forEach((fCenter, fanIdx) => {
+      let pCenter = project(fCenter, rotX, rotY, centerX, centerY, sizeFactor);
+      
+      // Fan outer ring in 3D
+      ctx.strokeStyle = fanIdx === 0 ? 'rgba(34, 211, 238, 0.65)' : 'rgba(124, 58, 237, 0.65)';
+      ctx.shadowColor = fanIdx === 0 ? 'rgba(34, 211, 238, 0.5)' : 'rgba(124, 58, 237, 0.5)';
+      ctx.shadowBlur = 6;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      let steps = 12;
+      for (let s = 0; s <= steps; s++) {
+        let theta = (s / steps) * Math.PI * 2;
+        let ringPt = {
+          x: fCenter.x + 0.08 * Math.cos(theta),
+          y: fCenter.y + 0.08 * Math.sin(theta),
+          z: fCenter.z
+        };
+        let pRing = project(ringPt, rotX, rotY, centerX, centerY, sizeFactor);
+        if (s === 0) ctx.moveTo(pRing.x, pRing.y);
+        else ctx.lineTo(pRing.x, pRing.y);
+      }
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Rotating blades in 3D
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.65)';
+      ctx.lineWidth = 2;
+      for (let j = 0; j < 3; j++) {
+        let angle = fanAngle + (j * (Math.PI * 2 / 3));
+        let bladeEnd = {
+          x: fCenter.x + Math.cos(angle) * 0.07,
+          y: fCenter.y + Math.sin(angle) * 0.07,
+          z: fCenter.z
+        };
+        let pEnd = project(bladeEnd, rotX, rotY, centerX, centerY, sizeFactor);
+        ctx.beginPath();
+        ctx.moveTo(pCenter.x, pCenter.y);
+        ctx.lineTo(pEnd.x, pEnd.y);
+        ctx.stroke();
+      }
+    });
+
+    // 8. Draw Monitor back cover (solid styling)
     const pMonBack = projectGroup(components.monitor.back);
     ctx.fillStyle = 'rgba(20, 20, 25, 0.9)';
     ctx.strokeStyle = 'rgba(124, 58, 237, 0.25)';
@@ -722,7 +1128,7 @@ function initHero3DPC() {
     ctx.fill();
     ctx.stroke();
 
-    // Fill bezel depth thickness
+    // Fill bezel thickness
     const pMonFront = projectGroup(components.monitor.front);
     ctx.fillStyle = 'rgba(124, 58, 237, 0.08)';
     for (let i = 0; i < 8; i++) {
@@ -736,10 +1142,10 @@ function initHero3DPC() {
       ctx.fill();
     }
 
-    // 5. Draw screen glass panel gradient fill
+    // 9. Draw Screen display gradient face
     const pDisplay = projectGroup(components.monitor.display);
     let grad = ctx.createLinearGradient(pDisplay[0].x, pDisplay[0].y, pDisplay[4].x, pDisplay[4].y);
-    grad.addColorStop(0, 'rgba(15, 23, 42, 0.85)'); // dark sleek background
+    grad.addColorStop(0, 'rgba(15, 23, 42, 0.85)'); // dark slate background
     grad.addColorStop(1, 'rgba(10, 10, 15, 0.95)');
     ctx.fillStyle = grad;
     ctx.beginPath();
@@ -748,9 +1154,9 @@ function initHero3DPC() {
     ctx.closePath();
     ctx.fill();
 
-    // Draw front glowing bezel stroke
+    // Front bezel outline
     ctx.strokeStyle = 'rgba(124, 58, 237, 0.85)';
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2.2;
     ctx.shadowColor = '#7C3AED';
     ctx.shadowBlur = 8;
     ctx.beginPath();
@@ -760,89 +1166,102 @@ function initHero3DPC() {
     ctx.stroke();
     ctx.shadowBlur = 0; // reset
 
-    // 6. Draw curved display mesh grid
-    ctx.strokeStyle = 'rgba(34, 211, 238, 0.05)';
-    ctx.lineWidth = 1;
-    let gridRows = 8;
-    for (let i = 1; i < gridRows; i++) {
-      let t = i / gridRows;
-      let left = project(getScreenPoint(0.0, t), rotX, rotY, centerX, centerY, sizeFactor);
-      let midL = project(getScreenPoint(0.33, t), rotX, rotY, centerX, centerY, sizeFactor);
-      let midR = project(getScreenPoint(0.66, t), rotX, rotY, centerX, centerY, sizeFactor);
-      let right = project(getScreenPoint(1.0, t), rotX, rotY, centerX, centerY, sizeFactor);
-      
-      ctx.beginPath();
-      ctx.moveTo(left.x, left.y);
-      ctx.lineTo(midL.x, midL.y);
-      ctx.lineTo(midR.x, midR.y);
-      ctx.lineTo(right.x, right.y);
-      ctx.stroke();
-    }
-    let gridCols = 8;
-    for (let i = 1; i < gridCols; i++) {
-      let s = i / gridCols;
-      let top = project(getScreenPoint(s, 0.0), rotX, rotY, centerX, centerY, sizeFactor);
-      let mid = project(getScreenPoint(s, 0.5), rotX, rotY, centerX, centerY, sizeFactor);
-      let bottom = project(getScreenPoint(s, 1.0), rotX, rotY, centerX, centerY, sizeFactor);
-      ctx.beginPath();
-      ctx.moveTo(top.x, top.y);
-      ctx.quadraticCurveTo(mid.x, mid.y, bottom.x, bottom.y);
-      ctx.stroke();
-    }
-
-    // 7. Dynamic Scrolling Code on Monitor screen
+    // 10. Draw Curved Screen IDE Editor Interface
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
-    ctx.shadowBlur = 6;
     
-    for (let i = 0; i < 5; i++) {
-      let lineIdx = (textScrollIndex + i) % mockCode.length;
-      let lineText = mockCode[lineIdx];
-      let t_pos = 0.18 + (i * 0.15); // vertical lines spacing
-      
-      // Calculate rotation and position in 3D
-      let ptStart = getScreenPoint(0.08, t_pos);
-      let ptEnd = getScreenPoint(0.92, t_pos);
-      let pStart = project(ptStart, rotX, rotY, centerX, centerY, sizeFactor);
-      let pEnd = project(ptEnd, rotX, rotY, centerX, centerY, sizeFactor);
+    // Vertical sidebar divider line at s = 0.24
+    let dividerStart = project(getScreenPoint(0.24, 0.0), rotX, rotY, centerX, centerY, sizeFactor);
+    let dividerEnd = project(getScreenPoint(0.24, 1.0), rotX, rotY, centerX, centerY, sizeFactor);
+    ctx.strokeStyle = 'rgba(34, 211, 238, 0.15)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(dividerStart.x, dividerStart.y);
+    ctx.lineTo(dividerEnd.x, dividerEnd.y);
+    ctx.stroke();
+
+    // Horizontal console divider line at t = 0.65 (from sidebar s = 0.24 to right s = 1.0)
+    let termDivStart = project(getScreenPoint(0.24, 0.65), rotX, rotY, centerX, centerY, sizeFactor);
+    let termDivEnd = project(getScreenPoint(1.0, 0.65), rotX, rotY, centerX, centerY, sizeFactor);
+    ctx.beginPath();
+    ctx.moveTo(termDivStart.x, termDivStart.y);
+    ctx.lineTo(termDivEnd.x, termDivEnd.y);
+    ctx.stroke();
+
+    // A. Render Sidebar (File Tree)
+    sidebarLines.forEach((textLine, i) => {
+      let t_pos = 0.12 + (i * 0.09);
+      let pt = getScreenPoint(0.06, t_pos);
+      let pStart = project(pt, rotX, rotY, centerX, centerY, sizeFactor);
+      let pEnd = project(getScreenPoint(0.22, t_pos), rotX, rotY, centerX, centerY, sizeFactor);
       
       let slantAngle = Math.atan2(pEnd.y - pStart.y, pEnd.x - pStart.x);
-      let fontSize = Math.max(7, Math.round(sizeFactor * 0.038 * pStart.scale));
+      let fontSize = Math.max(6, Math.round(sizeFactor * 0.025 * pStart.scale));
       
       ctx.save();
       ctx.translate(pStart.x, pStart.y);
       ctx.rotate(slantAngle);
+      ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
       
-      ctx.font = `bold ${fontSize}px 'JetBrains Mono', monospace`;
-      ctx.fillStyle = '#22D3EE';
-      ctx.shadowColor = '#22D3EE';
-      ctx.fillText(lineText, 0, 0);
+      // Sidebar font color (faint blue-gray)
+      ctx.fillStyle = i === 4 ? '#22D3EE' : 'rgba(255, 255, 255, 0.45)'; // highlight active file
+      ctx.fillText(textLine, 0, 0);
+      ctx.restore();
+    });
+
+    // B. Render Code Editor Pane (Syntax Highlighted Lines)
+    editorCode.forEach((codeLine, i) => {
+      let t_pos = 0.10 + (i * 0.07);
+      let pt = getScreenPoint(0.26, t_pos);
+      let pStart = project(pt, rotX, rotY, centerX, centerY, sizeFactor);
+      let pEnd = project(getScreenPoint(0.94, t_pos), rotX, rotY, centerX, centerY, sizeFactor);
       
+      let slantAngle = Math.atan2(pEnd.y - pStart.y, pEnd.x - pStart.x);
+      let fontSize = Math.max(6, Math.round(sizeFactor * 0.026 * pStart.scale));
+      
+      ctx.save();
+      ctx.translate(pStart.x, pStart.y);
+      ctx.rotate(slantAngle);
+      ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
+      
+      // Color-coding lines for realistic IDE highlight
+      if (codeLine.startsWith("import")) {
+        ctx.fillStyle = '#C084FC'; // purple imports
+      } else if (codeLine.startsWith("const") || codeLine.startsWith("developer.")) {
+        ctx.fillStyle = '#38BDF8'; // blue declarations
+      } else if (codeLine.includes("//")) {
+        ctx.fillStyle = '#4ADE80'; // green comments
+      } else {
+        ctx.fillStyle = '#F1F5F9'; // white standard
+      }
+      
+      ctx.fillText(codeLine, 0, 0);
+      ctx.restore();
+    });
+
+    // C. Render Terminal Console logs (scrolling upward)
+    for (let i = 0; i < 3; i++) {
+      let logIdx = (textScrollIndex + i) % terminalLogs.length;
+      let logText = terminalLogs[logIdx];
+      let t_pos = 0.72 + (i * 0.08);
+      
+      let pt = getScreenPoint(0.26, t_pos);
+      let pStart = project(pt, rotX, rotY, centerX, centerY, sizeFactor);
+      let pEnd = project(getScreenPoint(0.94, t_pos), rotX, rotY, centerX, centerY, sizeFactor);
+      
+      let slantAngle = Math.atan2(pEnd.y - pStart.y, pEnd.x - pStart.x);
+      let fontSize = Math.max(5, Math.round(sizeFactor * 0.022 * pStart.scale));
+      
+      ctx.save();
+      ctx.translate(pStart.x, pStart.y);
+      ctx.rotate(slantAngle);
+      ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
+      ctx.fillStyle = i === 2 ? '#22D3EE' : 'rgba(34, 211, 238, 0.6)'; // cyan logs
+      ctx.fillText(logText, 0, 0);
       ctx.restore();
     }
-    ctx.shadowBlur = 0; // reset
 
-    // Glowing CPU wave status graph (glowing red)
-    ctx.strokeStyle = 'rgba(239, 68, 68, 0.85)';
-    ctx.shadowColor = 'rgba(239, 68, 68, 0.8)';
-    ctx.shadowBlur = 8;
-    ctx.lineWidth = 1.6;
-    ctx.beginPath();
-    for (let i = 0; i <= 20; i++) {
-      let s = 0.58 + (i / 20) * 0.35;
-      let sine = Math.sin((Date.now() * 0.006) + i * 0.6) * Math.cos(Date.now() * 0.002);
-      let val = 0.78 + (sine * 0.08); // center vertically at t = 0.78
-      let pt = project(getScreenPoint(s, val), rotX, rotY, centerX, centerY, sizeFactor);
-      if (i === 0) {
-        ctx.moveTo(pt.x, pt.y);
-      } else {
-        ctx.lineTo(pt.x, pt.y);
-      }
-    }
-    ctx.stroke();
-    ctx.shadowBlur = 0;
-
-    // 8. Draw 3D Rising code/particle nodes (Hex / Binary bits floating up)
+    // 11. 3D Rising code/particle nodes (Hex / Binary bits floating up)
     particles3D.forEach(p => {
       p.y += p.speed;
       if (p.y > 0.4) {
