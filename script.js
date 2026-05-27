@@ -412,107 +412,76 @@ function initHero3DPC() {
     height = canvas.height = container.clientHeight || 400;
   });
 
-  // Define components in 3D space
+  // Define components in 3D space (perfectly centered around X=0)
   const components = {
-    // Ultrawide curved monitor screen (front and back)
     monitor: {
-      // Front bezel points (ends curve forward in Z)
+      // Curved screen bezel front (ends curve forward in Z)
       front: [
-        {x: -0.80, y:  0.42, z: -0.15}, // 0: Top-left
-        {x: -0.28, y:  0.42, z: -0.04}, // 1: Top-mid-left
-        {x:  0.28, y:  0.42, z: -0.04}, // 2: Top-mid-right
-        {x:  0.80, y:  0.42, z: -0.15}, // 3: Top-right
-        {x:  0.80, y: -0.32, z: -0.15}, // 4: Bottom-right
-        {x:  0.28, y: -0.32, z: -0.04}, // 5: Bottom-mid-right
-        {x: -0.28, y: -0.32, z: -0.04}, // 6: Bottom-mid-left
-        {x: -0.80, y: -0.32, z: -0.15}  // 7: Bottom-left
+        {x: -0.75, y:  0.42, z: -0.08}, // 0: Top-left
+        {x: -0.25, y:  0.42, z:  0.02}, // 1: Top-mid-left
+        {x:  0.25, y:  0.42, z:  0.02}, // 2: Top-mid-right
+        {x:  0.75, y:  0.42, z: -0.08}, // 3: Top-right
+        {x:  0.75, y: -0.25, z: -0.08}, // 4: Bottom-right
+        {x:  0.25, y: -0.25, z:  0.02}, // 5: Bottom-mid-right
+        {x: -0.25, y: -0.25, z:  0.02}, // 6: Bottom-mid-left
+        {x: -0.75, y: -0.25, z: -0.08}  // 7: Bottom-left
       ],
+      // Back bezel cover
       back: [
-        {x: -0.80, y:  0.42, z: -0.05}, // 8: Top-left back
-        {x: -0.28, y:  0.42, z:  0.06}, // 9: Top-mid-left back
-        {x:  0.28, y:  0.42, z:  0.06}, // 10: Top-mid-right back
-        {x:  0.80, y:  0.42, z: -0.05}, // 11: Top-right back
-        {x:  0.80, y: -0.32, z: -0.05}, // 12: Bottom-right back
-        {x:  0.28, y: -0.32, z:  0.06}, // 13: Bottom-mid-right back
-        {x: -0.28, y: -0.32, z:  0.06}, // 14: Bottom-mid-left back
-        {x: -0.80, y: -0.32, z: -0.05}  // 15: Bottom-left back
+        {x: -0.75, y:  0.42, z:  0.02}, // 8: Top-left back
+        {x: -0.25, y:  0.42, z:  0.12}, // 9: Top-mid-left back
+        {x:  0.25, y:  0.42, z:  0.12}, // 10: Top-mid-right back
+        {x:  0.75, y:  0.42, z:  0.02}, // 11: Top-right back
+        {x:  0.75, y: -0.25, z:  0.02}, // 12: Bottom-right back
+        {x:  0.25, y: -0.25, z:  0.12}, // 13: Bottom-mid-right back
+        {x: -0.25, y: -0.25, z:  0.12}, // 14: Bottom-mid-left back
+        {x: -0.75, y: -0.25, z:  0.02}  // 15: Bottom-left back
       ],
-      // Screen contents display frame (inside bezel)
+      // Screen contents display mesh
       display: [
-        {x: -0.76, y:  0.38, z: -0.14}, // 0: TL
-        {x: -0.26, y:  0.38, z: -0.04}, // 1: TML
-        {x:  0.26, y:  0.38, z: -0.04}, // 2: TMR
-        {x:  0.76, y:  0.38, z: -0.14}, // 3: TR
-        {x:  0.76, y: -0.28, z: -0.14}, // 4: BR
-        {x:  0.26, y: -0.28, z: -0.04}, // 5: BMR
-        {x: -0.26, y: -0.28, z: -0.04}, // 6: BML
-        {x: -0.76, y: -0.28, z: -0.14}  // 7: BL
+        {x: -0.71, y:  0.38, z: -0.07}, // 0: TL
+        {x: -0.24, y:  0.38, z:  0.02}, // 1: TML
+        {x:  0.24, y:  0.38, z:  0.02}, // 2: TMR
+        {x:  0.71, y:  0.38, z: -0.07}, // 3: TR
+        {x:  0.71, y: -0.21, z: -0.07}, // 4: BR
+        {x:  0.24, y: -0.21, z:  0.02}, // 5: BMR
+        {x: -0.24, y: -0.21, z:  0.02}, // 6: BML
+        {x: -0.71, y: -0.21, z: -0.07}  // 7: BL
       ],
       stand: [
-        // Neck joints
-        {x: -0.08, y: -0.32, z:  0.03}, // 0: Neck Top L
-        {x:  0.08, y: -0.32, z:  0.03}, // 1: Neck Top R
-        {x: -0.06, y: -0.68, z:  0.15}, // 2: Neck Bot L
-        {x:  0.06, y: -0.68, z:  0.15}, // 3: Neck Bot R
-        // V-base tips
-        {x: -0.35, y: -0.72, z: -0.15}, // 4: Left tip
-        {x:  0.35, y: -0.72, z: -0.15}, // 5: Right tip
-        {x:  0.0,  y: -0.72, z:  0.25}  // 6: Back foot
+        // Neck
+        {x: -0.06, y: -0.25, z:  0.07}, // 0: neck top left
+        {x:  0.06, y: -0.25, z:  0.07}, // 1: neck top right
+        {x: -0.05, y: -0.62, z:  0.15}, // 2: neck bottom left
+        {x:  0.05, y: -0.62, z:  0.15}, // 3: neck bottom right
+        // Trapezoidal Desk Base
+        {x: -0.22, y: -0.65, z: -0.10}, // 4: base front left
+        {x:  0.22, y: -0.65, z: -0.10}, // 5: base front right
+        {x:  0.18, y: -0.65, z:  0.22}, // 6: base back right
+        {x: -0.18, y: -0.65, z:  0.22}  // 7: base back left
       ]
     },
-    // PC Tower Cabinet (placed on the right side)
-    cabinet: {
-      box: [
-        {x: 0.90, y: -0.72, z: -0.20}, // 0: Bottom-left-front
-        {x: 1.25, y: -0.72, z: -0.20}, // 1: Bottom-right-front
-        {x: 1.25, y: -0.72, z:  0.35}, // 2: Bottom-right-back
-        {x: 0.90, y: -0.72, z:  0.35}, // 3: Bottom-left-back
-        
-        {x: 0.90, y:  0.20, z: -0.20}, // 4: Top-left-front
-        {x: 1.25, y:  0.20, z: -0.20}, // 5: Top-right-front
-        {x: 1.25, y:  0.20, z:  0.35}, // 6: Top-right-back
-        {x: 0.90, y:  0.20, z:  0.35}  // 7: Top-left-back
-      ],
-      // GPU inside the glass panel
-      gpu: [
-        {x: 0.92, y: -0.38, z:  0.02}, // 0
-        {x: 1.18, y: -0.38, z:  0.02}, // 1
-        {x: 1.18, y: -0.30, z:  0.02}, // 2
-        {x: 0.92, y: -0.30, z:  0.02}, // 3
-        
-        {x: 0.92, y: -0.38, z:  0.18}, // 4
-        {x: 1.18, y: -0.38, z:  0.18}, // 5
-        {x: 1.18, y: -0.30, z:  0.18}, // 6
-        {x: 0.92, y: -0.30, z:  0.18}  // 7
-      ],
-      // Glowing cooling fan centers
-      fans: [
-        {x: 1.075, y: -0.10, z: -0.20}, // Fan 1 (Front top)
-        {x: 1.075, y: -0.40, z: -0.20}  // Fan 2 (Front bottom)
-      ]
-    },
-    // Keyboard and mousepad in front
     keyboard: {
       plate: [
-        {x: -0.55, y: -0.72, z: -0.60}, // 0: TL
-        {x:  0.20, y: -0.72, z: -0.60}, // 1: TR
-        {x:  0.16, y: -0.72, z: -0.30}, // 2: BR
-        {x: -0.50, y: -0.72, z: -0.30}  // 3: BL
-      ]
-    },
-    mousepad: {
-      plate: [
-        {x:  0.26, y: -0.72, z: -0.55}, // 0
-        {x:  0.50, y: -0.72, z: -0.55}, // 1
-        {x:  0.46, y: -0.72, z: -0.32}, // 2
-        {x:  0.22, y: -0.72, z: -0.32}  // 3
-      ],
-      mouse: [
-        {x:  0.34, y: -0.72, z: -0.44}, // Center
-        {x:  0.37, y: -0.72, z: -0.44}  // Size offset
+        {x: -0.52, y: -0.65, z: -0.55}, // 0: TL
+        {x:  0.52, y: -0.65, z: -0.55}, // 1: TR
+        {x:  0.48, y: -0.65, z: -0.25}, // 2: BR
+        {x: -0.48, y: -0.65, z: -0.25}  // 3: BL
       ]
     }
   };
+
+  // 3D Rising code/particle nodes
+  const particles3D = [];
+  for (let i = 0; i < 7; i++) {
+    particles3D.push({
+      x: Math.random() * 0.8 - 0.4,
+      y: -0.65 - Math.random() * 0.3,
+      z: Math.random() * 0.5 - 0.25,
+      speed: 0.003 + Math.random() * 0.004,
+      char: ["0", "1", "<>", "{ }", "[ ]", "JS", "SYS", "OK"][Math.floor(Math.random() * 8)]
+    });
+  }
 
   // Drag interaction state
   let rotX = 0.12; 
@@ -594,18 +563,18 @@ function initHero3DPC() {
     let z2 = v.x * sinY + z1 * cosY;
     
     // Perspective scale
-    let distance = 2.3;
+    let distance = 2.2;
     let scale = 1 / (z2 + distance);
     
     return {
       x: x2 * scale * sizeFactor + centerX,
-      y: -y1 * scale * sizeFactor + centerY + (sizeFactor * 0.12),
+      y: -y1 * scale * sizeFactor + centerY + (sizeFactor * 0.14),
       z: z2,
       scale: scale
     };
   }
 
-  // Get a 3D coordinate point on the curved screen mesh (s: horizontal 0-1, t: vertical 0-1)
+  // Get a 3D coordinate point on the curved display mesh (s: horizontal 0-1, t: vertical 0-1)
   function getScreenPoint(s, t) {
     let Left = interpolate(components.monitor.display[0], components.monitor.display[7], t);
     let MidLeft = interpolate(components.monitor.display[1], components.monitor.display[6], t);
@@ -641,8 +610,6 @@ function initHero3DPC() {
   let textScrollIndex = 0;
 
   // Animation Loop
-  let fanAngle = 0;
-
   function animate() {
     ctx.clearRect(0, 0, width, height);
     
@@ -654,12 +621,11 @@ function initHero3DPC() {
       velocityY *= 0.96;
       
       // Idle rotate back to default slowly
-      rotY += (0.15 - rotY) * 0.005;
-      rotX += (0.10 - rotX) * 0.005;
+      rotY += (0.15 - rotY) * 0.004;
+      rotX += (0.10 - rotX) * 0.004;
     }
     
     rotX = Math.max(-0.4, Math.min(0.5, rotX));
-    fanAngle += 0.06;
     textScrollTimer += 1;
     if (textScrollTimer > 60) {
       textScrollTimer = 0;
@@ -668,42 +634,47 @@ function initHero3DPC() {
     
     const centerX = width / 2;
     const centerY = height / 2;
-    const sizeFactor = Math.min(width, height) * 0.42;
+    const sizeFactor = Math.min(width, height) * 0.52;
     
     // Project all structures helper
     function projectGroup(pts) {
       return pts.map(p => project(p, rotX, rotY, centerX, centerY, sizeFactor));
     }
     
-    // 1. Draw Mousepad
-    const pPad = projectGroup(components.mousepad.plate);
-    ctx.strokeStyle = 'rgba(124, 58, 237, 0.15)';
-    ctx.lineWidth = 1;
+    // 1. Draw glowing ambient desk light ring (LED ring under stand)
+    ctx.strokeStyle = 'rgba(124, 58, 237, 0.22)';
+    ctx.shadowColor = '#7C3AED';
+    ctx.shadowBlur = 15;
+    ctx.lineWidth = 1.8;
     ctx.beginPath();
-    ctx.moveTo(pPad[0].x, pPad[0].y);
-    ctx.lineTo(pPad[1].x, pPad[1].y);
-    ctx.lineTo(pPad[2].x, pPad[2].y);
-    ctx.lineTo(pPad[3].x, pPad[3].y);
+    for (let a = 0; a <= Math.PI * 2; a += 0.2) {
+      let pt = project({x: Math.cos(a) * 0.62, y: -0.65, z: 0.1 + Math.sin(a) * 0.52}, rotX, rotY, centerX, centerY, sizeFactor);
+      if (a === 0) ctx.moveTo(pt.x, pt.y);
+      else ctx.lineTo(pt.x, pt.y);
+    }
     ctx.closePath();
     ctx.stroke();
+    ctx.shadowBlur = 0; // reset shadow for other renders
 
-    // 2. Draw Keyboard Plate & Keys
+    // 2. Draw Keyboard
     const pKb = projectGroup(components.keyboard.plate);
+    ctx.fillStyle = 'rgba(10, 10, 15, 0.65)';
     ctx.strokeStyle = 'rgba(124, 58, 237, 0.4)';
-    ctx.lineWidth = 1.2;
+    ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.moveTo(pKb[0].x, pKb[0].y);
     ctx.lineTo(pKb[1].x, pKb[1].y);
     ctx.lineTo(pKb[2].x, pKb[2].y);
     ctx.lineTo(pKb[3].x, pKb[3].y);
     ctx.closePath();
+    ctx.fill();
     ctx.stroke();
 
-    // Draw keyboard grid
-    let rows = 4, cols = 8;
-    ctx.strokeStyle = 'rgba(34, 211, 238, 0.12)';
-    for (let i = 1; i < rows; i++) {
-      let t = i / rows;
+    // Draw keyboard key stripes
+    ctx.strokeStyle = 'rgba(34, 211, 238, 0.15)';
+    let keyRows = 4;
+    for (let i = 1; i < keyRows; i++) {
+      let t = i / keyRows;
       let left = interpolate(components.keyboard.plate[0], components.keyboard.plate[3], t);
       let right = interpolate(components.keyboard.plate[1], components.keyboard.plate[2], t);
       let pL = project(left, rotX, rotY, centerX, centerY, sizeFactor);
@@ -713,81 +684,83 @@ function initHero3DPC() {
       ctx.lineTo(pR.x, pR.y);
       ctx.stroke();
     }
-    for (let i = 1; i < cols; i++) {
-      let t = i / cols;
-      let top = interpolate(components.keyboard.plate[0], components.keyboard.plate[1], t);
-      let bottom = interpolate(components.keyboard.plate[3], components.keyboard.plate[2], t);
-      let pT = project(top, rotX, rotY, centerX, centerY, sizeFactor);
-      let pB = project(bottom, rotX, rotY, centerX, centerY, sizeFactor);
-      ctx.beginPath();
-      ctx.moveTo(pT.x, pT.y);
-      ctx.lineTo(pB.x, pB.y);
-      ctx.stroke();
-    }
 
-    // 3. Draw Mouse
-    const pMouseCenter = project(components.mousepad.mouse[0], rotX, rotY, centerX, centerY, sizeFactor);
-    const pMouseSize = project(components.mousepad.mouse[1], rotX, rotY, centerX, centerY, sizeFactor);
-    const mouseRadius = Math.abs(pMouseSize.x - pMouseCenter.x);
-    ctx.strokeStyle = 'rgba(34, 211, 238, 0.35)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.ellipse(pMouseCenter.x, pMouseCenter.y, mouseRadius, mouseRadius * 1.5, Math.atan2(pMouseSize.y - pMouseCenter.y, pMouseSize.x - pMouseCenter.x), 0, Math.PI * 2);
-    ctx.stroke();
-
-    // 4. Draw Monitor Stand
+    // 3. Draw Monitor Stand
     const pStand = projectGroup(components.monitor.stand);
+    ctx.fillStyle = 'rgba(15, 15, 20, 0.85)';
     ctx.strokeStyle = 'rgba(124, 58, 237, 0.6)';
     ctx.lineWidth = 1.5;
-    // Base V prongs
+    
+    // Base loop
     ctx.beginPath();
     ctx.moveTo(pStand[4].x, pStand[4].y);
-    ctx.lineTo(pStand[6].x, pStand[6].y);
     ctx.lineTo(pStand[5].x, pStand[5].y);
+    ctx.lineTo(pStand[6].x, pStand[6].y);
+    ctx.lineTo(pStand[7].x, pStand[7].y);
+    ctx.closePath();
+    ctx.fill();
     ctx.stroke();
-    // Neck vertical pillars
+    
+    // Neck loop
     ctx.beginPath();
     ctx.moveTo(pStand[0].x, pStand[0].y);
     ctx.lineTo(pStand[2].x, pStand[2].y);
-    ctx.lineTo(pStand[6].x, pStand[6].y);
-    ctx.moveTo(pStand[1].x, pStand[1].y);
     ctx.lineTo(pStand[3].x, pStand[3].y);
-    ctx.lineTo(pStand[6].x, pStand[6].y);
+    ctx.lineTo(pStand[1].x, pStand[1].y);
+    ctx.closePath();
+    ctx.fill();
     ctx.stroke();
 
-    // 5. Draw Ultrawide Monitor curved screen (bezel)
-    const pMonFront = projectGroup(components.monitor.front);
+    // 4. Draw Monitor back cover (solid solid-feeling back panel)
     const pMonBack = projectGroup(components.monitor.back);
-    ctx.lineWidth = 1.6;
+    ctx.fillStyle = 'rgba(20, 20, 25, 0.9)';
+    ctx.strokeStyle = 'rgba(124, 58, 237, 0.25)';
+    ctx.beginPath();
+    ctx.moveTo(pMonBack[0].x, pMonBack[0].y);
+    for (let i = 1; i < 8; i++) ctx.lineTo(pMonBack[i].x, pMonBack[i].y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Fill bezel depth thickness
+    const pMonFront = projectGroup(components.monitor.front);
+    ctx.fillStyle = 'rgba(124, 58, 237, 0.08)';
+    for (let i = 0; i < 8; i++) {
+      let next = (i + 1) % 8;
+      ctx.beginPath();
+      ctx.moveTo(pMonFront[i].x, pMonFront[i].y);
+      ctx.lineTo(pMonBack[i].x, pMonBack[i].y);
+      ctx.lineTo(pMonBack[next].x, pMonBack[next].y);
+      ctx.lineTo(pMonFront[next].x, pMonFront[next].y);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // 5. Draw screen glass panel gradient fill
+    const pDisplay = projectGroup(components.monitor.display);
+    let grad = ctx.createLinearGradient(pDisplay[0].x, pDisplay[0].y, pDisplay[4].x, pDisplay[4].y);
+    grad.addColorStop(0, 'rgba(15, 23, 42, 0.85)'); // dark sleek background
+    grad.addColorStop(1, 'rgba(10, 10, 15, 0.95)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(pDisplay[0].x, pDisplay[0].y);
+    for (let i = 1; i < 8; i++) ctx.lineTo(pDisplay[i].x, pDisplay[i].y);
+    ctx.closePath();
+    ctx.fill();
+
+    // Draw front glowing bezel stroke
     ctx.strokeStyle = 'rgba(124, 58, 237, 0.85)';
-    
-    // Front bezel loop
+    ctx.lineWidth = 2;
+    ctx.shadowColor = '#7C3AED';
+    ctx.shadowBlur = 8;
     ctx.beginPath();
     ctx.moveTo(pMonFront[0].x, pMonFront[0].y);
     for (let i = 1; i < 8; i++) ctx.lineTo(pMonFront[i].x, pMonFront[i].y);
     ctx.closePath();
     ctx.stroke();
+    ctx.shadowBlur = 0; // reset
 
-    // Back cover loop
-    ctx.strokeStyle = 'rgba(124, 58, 237, 0.3)';
-    ctx.beginPath();
-    ctx.moveTo(pMonBack[0].x, pMonBack[0].y);
-    for (let i = 1; i < 8; i++) ctx.lineTo(pMonBack[i].x, pMonBack[i].y);
-    ctx.closePath();
-    ctx.stroke();
-
-    // Connect front-back depth lines
-    ctx.beginPath();
-    for (let i = 0; i < 8; i += 2) {
-      ctx.moveTo(pMonFront[i].x, pMonFront[i].y);
-      ctx.lineTo(pMonBack[i].x, pMonBack[i].y);
-    }
-    ctx.stroke();
-
-    // 6. Curved Display Contents (scrolling code and neon overlay)
-    const pDisplay = projectGroup(components.monitor.display);
-    
-    // Faint grid lines on screen following curvature
+    // 6. Draw curved display mesh grid
     ctx.strokeStyle = 'rgba(34, 211, 238, 0.05)';
     ctx.lineWidth = 1;
     let gridRows = 8;
@@ -817,7 +790,7 @@ function initHero3DPC() {
       ctx.stroke();
     }
 
-    // Dynamic Scrolling Text drawing
+    // 7. Dynamic Scrolling Code on Monitor screen
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
     ctx.shadowBlur = 6;
@@ -841,8 +814,6 @@ function initHero3DPC() {
       ctx.rotate(slantAngle);
       
       ctx.font = `bold ${fontSize}px 'JetBrains Mono', monospace`;
-      
-      // Gradient glow coloring
       ctx.fillStyle = '#22D3EE';
       ctx.shadowColor = '#22D3EE';
       ctx.fillText(lineText, 0, 0);
@@ -851,15 +822,14 @@ function initHero3DPC() {
     }
     ctx.shadowBlur = 0; // reset
 
-    // Glowing CPU oscilloscope status graph on screen bottom-right
-    ctx.strokeStyle = 'rgba(239, 68, 68, 0.8)';
+    // Glowing CPU wave status graph (glowing red)
+    ctx.strokeStyle = 'rgba(239, 68, 68, 0.85)';
     ctx.shadowColor = 'rgba(239, 68, 68, 0.8)';
     ctx.shadowBlur = 8;
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = 1.6;
     ctx.beginPath();
     for (let i = 0; i <= 20; i++) {
       let s = 0.58 + (i / 20) * 0.35;
-      // Sine wave modulated over time
       let sine = Math.sin((Date.now() * 0.006) + i * 0.6) * Math.cos(Date.now() * 0.002);
       let val = 0.78 + (sine * 0.08); // center vertically at t = 0.78
       let pt = project(getScreenPoint(s, val), rotX, rotY, centerX, centerY, sizeFactor);
@@ -872,96 +842,22 @@ function initHero3DPC() {
     ctx.stroke();
     ctx.shadowBlur = 0;
 
-    // 7. Draw PC Tower Cabinet
-    const pCab = projectGroup(components.cabinet.box);
-    ctx.strokeStyle = 'rgba(124, 58, 237, 0.75)';
-    ctx.lineWidth = 1.5;
-    
-    // Bottom Loop
-    ctx.beginPath();
-    ctx.moveTo(pCab[0].x, pCab[0].y);
-    ctx.lineTo(pCab[1].x, pCab[1].y);
-    ctx.lineTo(pCab[2].x, pCab[2].y);
-    ctx.lineTo(pCab[3].x, pCab[3].y);
-    ctx.closePath();
-    ctx.stroke();
-
-    // Top Loop
-    ctx.beginPath();
-    ctx.moveTo(pCab[4].x, pCab[4].y);
-    ctx.lineTo(pCab[5].x, pCab[5].y);
-    ctx.lineTo(pCab[6].x, pCab[6].y);
-    ctx.lineTo(pCab[7].x, pCab[7].y);
-    ctx.closePath();
-    ctx.stroke();
-
-    // Verticals
-    ctx.beginPath();
-    for (let i = 0; i < 4; i++) {
-      ctx.moveTo(pCab[i].x, pCab[i].y);
-      ctx.lineTo(pCab[i+4].x, pCab[i+4].y);
-    }
-    ctx.stroke();
-
-    // Internal components (GPU outline)
-    const pGpu = projectGroup(components.cabinet.gpu);
-    ctx.strokeStyle = 'rgba(239, 68, 68, 0.45)';
-    ctx.lineWidth = 1;
-    // GPU Bottom Loop
-    ctx.beginPath();
-    ctx.moveTo(pGpu[0].x, pGpu[0].y);
-    for (let i = 1; i < 4; i++) ctx.lineTo(pGpu[i].x, pGpu[i].y);
-    ctx.closePath();
-    ctx.stroke();
-    // GPU Top Loop
-    ctx.beginPath();
-    ctx.moveTo(pGpu[4].x, pGpu[4].y);
-    for (let i = 5; i < 8; i++) ctx.lineTo(pGpu[i].x, pGpu[i].y);
-    ctx.closePath();
-    ctx.stroke();
-    // GPU connecting pillars
-    ctx.beginPath();
-    for (let i = 0; i < 4; i++) {
-      ctx.moveTo(pGpu[i].x, pGpu[i].y);
-      ctx.lineTo(pGpu[i+4].x, pGpu[i+4].y);
-    }
-    ctx.stroke();
-
-    // 8. Dynamic Rotating Cooling Fans inside Cabinet
-    components.cabinet.fans.forEach((fCenter, fanIdx) => {
-      const pCenter = project(fCenter, rotX, rotY, centerX, centerY, sizeFactor);
-      
-      // Calculate circle scaling in perspective
-      const offsetPt = project({x: fCenter.x, y: fCenter.y + 0.10, z: fCenter.z}, rotX, rotY, centerX, centerY, sizeFactor);
-      const fanRadius = Math.sqrt(Math.pow(offsetPt.x - pCenter.x, 2) + Math.pow(offsetPt.y - pCenter.y, 2));
-      
-      // Draw outer glowing ring of the fan
-      ctx.strokeStyle = fanIdx === 0 ? 'rgba(34, 211, 238, 0.65)' : 'rgba(124, 58, 237, 0.65)';
-      ctx.shadowColor = fanIdx === 0 ? 'rgba(34, 211, 238, 0.5)' : 'rgba(124, 58, 237, 0.5)';
-      ctx.shadowBlur = 6;
-      ctx.lineWidth = 1.2;
-      ctx.beginPath();
-      ctx.arc(pCenter.x, pCenter.y, fanRadius, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.shadowBlur = 0;
-
-      // Draw 3 rotating fan blades
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
-      ctx.lineWidth = 2.2;
-      for (let j = 0; j < 3; j++) {
-        let angle = fanAngle + (j * (Math.PI * 2 / 3));
-        // Project outer point of the fan blade
-        let bladeEnd = {
-          x: fCenter.x + Math.cos(angle) * 0.09,
-          y: fCenter.y + Math.sin(angle) * 0.09,
-          z: fCenter.z
-        };
-        let pEnd = project(bladeEnd, rotX, rotY, centerX, centerY, sizeFactor);
-        ctx.beginPath();
-        ctx.moveTo(pCenter.x, pCenter.y);
-        ctx.lineTo(pEnd.x, pEnd.y);
-        ctx.stroke();
+    // 8. Draw 3D Rising code/particle nodes (Hex / Binary bits floating up)
+    particles3D.forEach(p => {
+      p.y += p.speed;
+      if (p.y > 0.4) {
+        p.y = -0.65;
+        p.x = Math.random() * 0.8 - 0.4;
+        p.z = Math.random() * 0.5 - 0.25;
       }
+      
+      let pt = project(p, rotX, rotY, centerX, centerY, sizeFactor);
+      let alpha = (0.4 - p.y) / 1.05;
+      alpha = Math.max(0, Math.min(0.55, alpha));
+      
+      ctx.fillStyle = `rgba(34, 211, 238, ${alpha})`;
+      ctx.font = `bold ${Math.max(6, Math.round(11 * pt.scale))}px 'JetBrains Mono', monospace`;
+      ctx.fillText(p.char, pt.x, pt.y);
     });
     
     requestAnimationFrame(animate);
