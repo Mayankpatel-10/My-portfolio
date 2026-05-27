@@ -426,12 +426,29 @@ function initHero3DPC() {
         {x:  1.1, y: -0.69, z: -0.58}, // 5: Bottom Front Right
         {x:  1.0, y: -0.69, z:  0.38}, // 6: Bottom Back Right
         {x: -1.0, y: -0.69, z:  0.38}  // 7: Bottom Back Left
+      ]
+    },
+    // Studio Monitor Speakers
+    speakers: {
+      left: [
+        {x: -0.98, y: -0.65, z: -0.31}, // 0: BLF
+        {x: -0.86, y: -0.65, z: -0.31}, // 1: BRF
+        {x: -0.86, y: -0.65, z: -0.19}, // 2: BRB
+        {x: -0.98, y: -0.65, z: -0.19}, // 3: BLB
+        {x: -0.98, y: -0.45, z: -0.31}, // 4: TLF
+        {x: -0.86, y: -0.45, z: -0.31}, // 5: TRF
+        {x: -0.86, y: -0.45, z: -0.19}, // 6: TRB
+        {x: -0.98, y: -0.45, z: -0.19}  // 7: TLB
       ],
-      legs: [
-        { start: {x: -0.98, y: -0.69, z: -0.48}, end: {x: -0.98, y: -1.35, z: -0.48} }, // Front Left
-        { start: {x:  0.98, y: -0.69, z: -0.48}, end: {x:  0.98, y: -1.35, z: -0.48} }, // Front Right
-        { start: {x:  0.90, y: -0.69, z:  0.32}, end: {x:  0.90, y: -1.35, z:  0.32} }, // Back Right
-        { start: {x: -0.90, y: -0.69, z:  0.32}, end: {x: -0.90, y: -1.35, z:  0.32} }  // Back Left
+      right: [
+        {x: 0.58, y: -0.65, z: -0.31}, // 0: BLF
+        {x: 0.70, y: -0.65, z: -0.31}, // 1: BRF
+        {x: 0.70, y: -0.65, z: -0.19}, // 2: BRB
+        {x: 0.58, y: -0.65, z: -0.19}, // 3: BLB
+        {x: 0.58, y: -0.45, z: -0.31}, // 4: TLF
+        {x: 0.70, y: -0.45, z: -0.31}, // 5: TRF
+        {x: 0.70, y: -0.45, z: -0.19}, // 6: TRB
+        {x: 0.58, y: -0.45, z: -0.19}  // 7: TLB
       ]
     },
     // Monitor (Centered slightly left at X = -0.2)
@@ -723,27 +740,7 @@ function initHero3DPC() {
       return pts.map(p => project(p, rotX, rotY, centerX, centerY, sizeFactor));
     }
     
-    // 1. Draw Table Legs (Double-post structure)
-    ctx.strokeStyle = 'rgba(124, 58, 237, 0.25)';
-    ctx.lineWidth = 1.8;
-    components.table.legs.forEach(leg => {
-      let pStart = project(leg.start, rotX, rotY, centerX, centerY, sizeFactor);
-      let pEnd = project(leg.end, rotX, rotY, centerX, centerY, sizeFactor);
-      ctx.beginPath();
-      ctx.moveTo(pStart.x, pStart.y);
-      ctx.lineTo(pEnd.x, pEnd.y);
-      ctx.stroke();
-      
-      // Double pillar offset
-      let startOffset = { x: leg.start.x + 0.03, y: leg.start.y, z: leg.start.z + 0.03 };
-      let endOffset = { x: leg.end.x + 0.03, y: leg.end.y, z: leg.end.z + 0.03 };
-      let pStartOffset = project(startOffset, rotX, rotY, centerX, centerY, sizeFactor);
-      let pEndOffset = project(endOffset, rotX, rotY, centerX, centerY, sizeFactor);
-      ctx.beginPath();
-      ctx.moveTo(pStartOffset.x, pStartOffset.y);
-      ctx.lineTo(pEndOffset.x, pEndOffset.y);
-      ctx.stroke();
-    });
+    // (Table legs removed for a clean floating look)
 
     // 2. Draw Tabletop Slab (filled glass panel)
     const pT = projectGroup(components.table.top);
@@ -914,6 +911,78 @@ function initHero3DPC() {
     ctx.lineTo(pWheelEnd.x, pWheelEnd.y);
     ctx.stroke();
     ctx.restore();
+
+    // 4.5 Draw Speakers (Studio Monitors on left and right)
+    const drawSpeaker = (pts, wooferCenter, tweeterCenter) => {
+      const pS = pts.map(p => project(p, rotX, rotY, centerX, centerY, sizeFactor));
+      
+      // Speaker Cabinet Box Fill & Stroke
+      ctx.fillStyle = 'rgba(12, 12, 18, 0.95)';
+      ctx.strokeStyle = 'rgba(124, 58, 237, 0.5)';
+      ctx.lineWidth = 1.2;
+      
+      // Bottom face
+      ctx.beginPath();
+      ctx.moveTo(pS[0].x, pS[0].y);
+      for (let i = 1; i < 4; i++) ctx.lineTo(pS[i].x, pS[i].y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Top face
+      ctx.beginPath();
+      ctx.moveTo(pS[4].x, pS[4].y);
+      for (let i = 5; i < 8; i++) ctx.lineTo(pS[i].x, pS[i].y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Side/vertical pillars
+      ctx.beginPath();
+      for (let i = 0; i < 4; i++) {
+        ctx.moveTo(pS[i].x, pS[i].y);
+        ctx.lineTo(pS[i+4].x, pS[i+4].y);
+      }
+      ctx.stroke();
+
+      // Front face woofer and tweeter cones (parallel to XY plane)
+      ctx.strokeStyle = 'rgba(34, 211, 238, 0.6)';
+      ctx.lineWidth = 1.0;
+      
+      // Woofer cone
+      ctx.beginPath();
+      let steps = 10;
+      for (let s = 0; s <= steps; s++) {
+        let theta = (s / steps) * Math.PI * 2;
+        let ringPt = {
+          x: wooferCenter.x + 0.04 * Math.cos(theta),
+          y: wooferCenter.y + 0.04 * Math.sin(theta),
+          z: wooferCenter.z
+        };
+        let pRing = project(ringPt, rotX, rotY, centerX, centerY, sizeFactor);
+        if (s === 0) ctx.moveTo(pRing.x, pRing.y);
+        else ctx.lineTo(pRing.x, pRing.y);
+      }
+      ctx.stroke();
+
+      // Tweeter cone
+      ctx.beginPath();
+      for (let s = 0; s <= steps; s++) {
+        let theta = (s / steps) * Math.PI * 2;
+        let ringPt = {
+          x: tweeterCenter.x + 0.025 * Math.cos(theta),
+          y: tweeterCenter.y + 0.025 * Math.sin(theta),
+          z: tweeterCenter.z
+        };
+        let pRing = project(ringPt, rotX, rotY, centerX, centerY, sizeFactor);
+        if (s === 0) ctx.moveTo(pRing.x, pRing.y);
+        else ctx.lineTo(pRing.x, pRing.y);
+      }
+      ctx.stroke();
+    };
+
+    drawSpeaker(components.speakers.left, {x: -0.92, y: -0.56, z: -0.31}, {x: -0.92, y: -0.48, z: -0.31});
+    drawSpeaker(components.speakers.right, {x: 0.64, y: -0.56, z: -0.31}, {x: 0.64, y: -0.48, z: -0.31});
 
     // 5. Draw Monitor Stand Base & Neck
     const pStand = projectGroup(components.monitor.stand);
