@@ -4,22 +4,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const scrollIndicator = document.getElementById('scrollIndicator');
     const scrollProgressBar = document.getElementById('scrollProgressBar');
     
-    // Update scroll indicators
+    // Chrome-like smooth scroll with momentum
+    let scrollVelocity = 0;
+    let lastScrollY = 0;
+    let scrollMomentum = 0;
+    
+    // Update scroll indicators with smooth animation
     function updateScrollProgress() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercent = (scrollTop / scrollHeight) * 100;
+        const scrollPercent = Math.min((scrollTop / scrollHeight) * 100, 100);
+        
+        // Calculate scroll velocity for momentum effects
+        scrollVelocity = scrollTop - lastScrollY;
+        lastScrollY = scrollTop;
+        scrollMomentum = scrollVelocity * 0.3;
         
         if (scrollIndicator) {
             scrollIndicator.style.transform = `scaleX(${scrollPercent / 100})`;
+            scrollIndicator.style.transition = 'transform 0.1s ease-out';
         }
         
         if (scrollProgressBar) {
             scrollProgressBar.style.transform = `scaleY(${scrollPercent / 100})`;
+            scrollProgressBar.style.transition = 'transform 0.1s ease-out';
         }
     }
     
-    // Scroll reveal animations
+    // Chrome-like scroll reveal with staggered animations
     function revealElements() {
         const reveals = document.querySelectorAll('.reveal');
         const revealsLeft = document.querySelectorAll('.reveal-left');
@@ -28,11 +40,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const staggerItems = document.querySelectorAll('.stagger-item');
         
         function checkReveal(elements, className) {
-            elements.forEach(element => {
+            elements.forEach((element, index) => {
                 const elementTop = element.getBoundingClientRect().top;
                 const elementVisible = 150;
                 
                 if (elementTop < window.innerHeight - elementVisible) {
+                    // Add staggered delay for Chrome-like effect
+                    const delay = index * 100;
+                    element.style.transitionDelay = `${delay}ms`;
                     element.classList.add('active');
                 } else {
                     element.classList.remove('active');
@@ -47,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         checkReveal(staggerItems, 'stagger-item');
     }
     
-    // Parallax effect
+    // Enhanced parallax with smooth easing
     function parallaxEffect() {
         const parallaxElements = document.querySelectorAll('.parallax-element');
         const scrolled = window.pageYOffset;
@@ -55,45 +70,111 @@ document.addEventListener('DOMContentLoaded', function() {
         parallaxElements.forEach(element => {
             const speed = element.dataset.speed || 0.5;
             const yPos = -(scrolled * speed);
-            element.style.transform = `translateY(${yPos}px)`;
+            const ease = 0.08; // Chrome-like easing
+            const currentY = parseFloat(element.style.transform.replace('translateY(', '').replace('px)', '') || 0);
+            const targetY = currentY + (yPos - currentY) * ease;
+            
+            element.style.transform = `translateY(${targetY}px)`;
         });
     }
     
-    // Floating animation on scroll
+    // Chrome-like floating effect with sine wave
     function floatingEffect() {
         const floatingElements = document.querySelectorAll('.floating-element');
         const scrolled = window.pageYOffset;
+        const time = Date.now() * 0.001;
         
         floatingElements.forEach((element, index) => {
             const speed = 0.5 + (index * 0.1);
-            const yPos = Math.sin(scrolled * 0.01 * speed) * 20;
-            element.style.transform = `translateY(${yPos}px)`;
+            const amplitude = 15 + (index * 5);
+            const frequency = 0.002 + (index * 0.0005);
+            const yPos = Math.sin((scrolled * frequency) + (time * speed)) * amplitude;
+            const rotation = Math.cos((scrolled * frequency) + (time * speed)) * 2;
+            
+            element.style.transform = `translateY(${yPos}px) rotate(${rotation}deg)`;
+            element.style.transition = 'transform 0.3s ease-out';
         });
     }
     
-    // Smooth scroll for navigation links
+    // Chrome-like scroll-based blur and opacity effects
+    function scrollBasedEffects() {
+        const sections = document.querySelectorAll('section');
+        const scrollY = window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const sectionCenter = rect.top + rect.height / 2;
+            const distanceFromCenter = Math.abs(windowHeight / 2 - sectionCenter);
+            const maxDistance = windowHeight / 2;
+            
+            // Blur effect based on distance from viewport center
+            const blurAmount = Math.max(0, (distanceFromCenter / maxDistance) * 2);
+            const opacity = Math.max(0.3, 1 - (distanceFromCenter / maxDistance) * 0.3);
+            
+            if (section.classList.contains('hero')) {
+                // Apply subtle blur to hero when scrolling
+                section.style.filter = `blur(${Math.min(blurAmount * 0.5, 1)}px)`;
+                section.style.opacity = opacity;
+            }
+        });
+    }
+    
+    // Chrome-like smooth scroll with easing
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                const startPosition = window.pageYOffset;
+                const targetPosition = target.offsetTop - 100;
+                const distance = targetPosition - startPosition;
+                const duration = 800; // Chrome-like duration
+                let start = null;
+                
+                function animation(currentTime) {
+                    if (start === null) start = currentTime;
+                    const timeElapsed = currentTime - start;
+                    const progress = Math.min(timeElapsed / duration, 1);
+                    
+                    // Chrome easing function (ease-in-out cubic)
+                    const easeProgress = progress < 0.5
+                        ? 4 * progress * progress * progress
+                        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+                    
+                    window.scrollTo(0, startPosition + distance * easeProgress);
+                    
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(animation);
+                    }
+                }
+                
+                requestAnimationFrame(animation);
             }
         });
     });
     
-    // Scroll event listeners
-    window.addEventListener('scroll', () => {
+    // Enhanced scroll event listener with throttling for performance
+    let ticking = false;
+    
+    function updateScrollEffects() {
         updateScrollProgress();
         revealElements();
         parallaxEffect();
         floatingEffect();
-    });
+        scrollBasedEffects();
+        ticking = false;
+    }
     
-    // Initial call
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                updateScrollEffects();
+                ticking = true;
+            });
+        }
+    });
+    // Initial calls
     updateScrollProgress();
     revealElements();
     

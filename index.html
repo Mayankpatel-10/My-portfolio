@@ -11,12 +11,12 @@
 
   <link rel="stylesheet" href="styles.css">
   <script src="advanced-scroll.js"></script>
+  <script src="scroll-effects.js"></script>
+  <script src="leetcode-updater.js"></script>
 </head>
 <body>
-
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 <div class="noise"></div>
+<canvas id="particle-canvas"></canvas>
 
 <!-- SCROLL INDICATORS -->
 <div class="scroll-indicator" id="scrollIndicator"></div>
@@ -26,12 +26,14 @@
 
 <!-- NAVIGATION -->
 <nav>
-  <a href="#" class="nav-logo">MAYANK</a>
+  <a href="#" class="nav-logo">MAYANK<span>.</span>DEV</a>
   
   <ul class="nav-links">
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
+    <li><a href="#internship">Internship</a></li>
+    <li><a href="#leetcode">LeetCode</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -142,21 +144,8 @@
     </div>
   </div>
   <div class="hero-visual">
-    <span class="skill-float sf1"><i class="fab fa-react"></i> REACT</span>
-    <span class="skill-float sf2"><i class="fab fa-android"></i> KOTLIN</span>
-    <span class="skill-float sf3"><i class="fab fa-python"></i> PYTHON</span>
-    <span class="skill-float sf4"><i class="fas fa-brain"></i> ML</span>
-
-    <div class="orbit-container">
-      <div class="orbit-ring ring1"></div>
-      <div class="orbit-ring ring2"></div>
-      <div class="orbit-ring ring3"></div>
-      <div class="orbit-center">
-        WEB<br>ANDROID<br>AI
-      </div>
-      <div class="orbit-dot orbit-dot1"></div>
-      <div class="orbit-dot orbit-dot2"></div>
-      <div class="orbit-dot orbit-dot3"></div>
+    <div class="pc-visual-container">
+      <canvas id="hero-3d-pc"></canvas>
     </div>
   </div>
 </section>
@@ -308,6 +297,62 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- INTERNSHIP SECTION -->
+<section id="internship">
+  <div class="container">
+    <p class="section-label">Experience</p>
+    <h2 class="section-title">INTERNSHIP</h2>
+    
+    <div class="internship-3d-card">
+      <div class="internship-card-inner">
+        <div class="internship-header">
+          <div class="company-logo">
+            <i class="fas fa-building"></i>
+          </div>
+          <div class="company-info">
+            <h3>Kogniti Minds Private Limited</h3>
+            <p class="internship-role">Web Developer Intern</p>
+            <p class="internship-duration">2024</p>
+          </div>
+        </div>
+        
+        <div class="internship-content">
+          <div class="internship-project">
+            <h4><i class="fas fa-school"></i> School Website Development</h4>
+            <p>Developed a comprehensive school management website with modern features and responsive design.</p>
+            
+            <div class="project-highlights">
+              <div class="highlight-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Built responsive frontend with React & Tailwind CSS</span>
+              </div>
+              <div class="highlight-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Implemented interactive features for students and teachers</span>
+              </div>
+              <div class="highlight-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Designed user-friendly interface with modern UI/UX</span>
+              </div>
+              <div class="highlight-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Optimized performance and cross-browser compatibility</span>
+              </div>
+            </div>
+            
+            <div class="tech-used">
+              <span class="tech-badge"><i class="fab fa-react"></i> React</span>
+              <span class="tech-badge"><i class="fas fa-wind"></i> Tailwind CSS</span>
+              <span class="tech-badge"><i class="fab fa-js"></i> JavaScript</span>
+              <span class="tech-badge"><i class="fas fa-code"></i> HTML5</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -476,74 +521,257 @@
   </div>
 </section>
 
-<div class="contact-3d-grid">
-
-  <!-- Email -->
-  <a href="mailto:mayankpatelmehta@gmail.com" class="contact-3d-item">
-    <div class="contact-3d-inner">
-      <i class="fas fa-envelope"></i>
-      <div>
-        <span class="contact-type">Mail</span>
-        <span class="contact-val">Email</span>
+<!-- LEETCODE STATS SECTION -->
+<section id="leetcode">
+  <div class="container">
+    <p class="section-label">Coding Profile</p>
+    <h2 class="section-title">LEETCODE STATS</h2>
+    
+    <div class="leetcode-dashboard">
+      <div class="leetcode-profile-card">
+        <div class="profile-header">
+          <div class="profile-avatar">
+            <i class="fas fa-code"></i>
+          </div>
+          <div class="profile-info">
+            <h3>mynk_1002</h3>
+            <div class="profile-stats">
+              <span class="rating-badge">⭐ 1,592</span>
+              <span class="rank-badge"><i class="fas fa-globe"></i> Rank: <span id="leetcode-rank">#408,379</span></span>
+            </div>
+          </div>
+          <a href="https://leetcode.com/u/mynk_1002/" target="_blank" class="profile-link">
+            <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
       </div>
-    </div>
-  </a>
-
-  <!-- Phone -->
-  <a href="tel:+919878089375" class="contact-3d-item">
-    <div class="contact-3d-inner">
-      <i class="fas fa-phone"></i>
-      <div>
-        <span class="contact-type">Phone</span>
-        <span class="contact-val">Contact me</span>
+      
+      <div class="leetcode-metrics">
+        <div class="metric-card easy">
+          <div class="metric-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="metric-data">
+            <span class="metric-number" id="leetcode-easy">131</span>
+            <span class="metric-label">Easy</span>
+            <span class="metric-total" id="leetcode-easy-total">/ 946</span>
+          </div>
+        </div>
+        
+        <div class="metric-card medium">
+          <div class="metric-icon">
+            <i class="fas fa-fire"></i>
+          </div>
+          <div class="metric-data">
+            <span class="metric-number" id="leetcode-medium">165</span>
+            <span class="metric-label">Medium</span>
+            <span class="metric-total" id="leetcode-medium-total">/ 2061</span>
+          </div>
+        </div>
+        
+        <div class="metric-card hard">
+          <div class="metric-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <div class="metric-data">
+            <span class="metric-number" id="leetcode-hard">29</span>
+            <span class="metric-label">Hard</span>
+            <span class="metric-total" id="leetcode-hard-total">/ 937</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </a>
 
-  <!-- GitHub -->
-  <a href="https://github.com/Mayankpatel-10" target="_blank" class="contact-3d-item">
-    <div class="contact-3d-inner">
-      <i class="fab fa-github"></i>
-      <div>
-        <span class="contact-type">GitHub</span>
-        <span class="contact-val">Mayankpatel-10</span>
+      <div class="leetcode-dashboard-grid">
+        <!-- Left detail metrics -->
+        <div class="leetcode-dashboard-left">
+          <div class="leetcode-details">
+            <div class="detail-item">
+              <i class="fas fa-check-circle"></i>
+              <div class="detail-content">
+                <span class="detail-label">Total Solved</span>
+                <span class="detail-value" id="leetcode-total">325</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-percentage"></i>
+              <div class="detail-content">
+                <span class="detail-label">Acceptance Rate</span>
+                <span class="detail-value" id="leetcode-acceptance">73.0%</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-trophy"></i>
+              <div class="detail-content">
+                <span class="detail-label">Contests</span>
+                <span class="detail-value">5</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-upload"></i>
+              <div class="detail-content">
+                <span class="detail-label">Submissions</span>
+                <span class="detail-value" id="leetcode-submissions">578</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="leetcode-progress">
+            <div class="progress-header">
+              <span>Overall Progress</span>
+              <span id="leetcode-progress-text">325 / 3944</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="leetcode-progress-fill" style="width: 8.24%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right recent submissions list -->
+        <div class="leetcode-dashboard-right">
+          <div class="leetcode-submissions-card glass-card">
+            <h4 class="submissions-title"><i class="fas fa-history"></i> RECENT TRANSMISSIONS</h4>
+            <div class="submissions-list" id="leetcodeSubmissionsList">
+              <div class="submission-loading">
+                <i class="fas fa-circle-notch fa-spin"></i> Fetching active logs...
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </a>
-
-  <!-- LinkedIn -->
-  <a href="https://www.linkedin.com/in/mayank-patel10" target="_blank" class="contact-3d-item">
-    <div class="contact-3d-inner">
-      <i class="fab fa-linkedin-in"></i>
-      <div>
-        <span class="contact-type">LinkedIn</span>
-        <span class="contact-val">mayank-patel10</span>
-      </div>
-    </div>
-  </a>
-
-  <!-- LeetCode -->
-  <a href="https://leetcode.com/u/mynk_1002/" target="_blank" class="contact-3d-item">
-    <div class="contact-3d-inner">
-      <i class="fas fa-code"></i>
-      <div>
-        <span class="contact-type">LeetCode</span>
-        <span class="contact-val">mynk_1002</span>
-      </div>
-    </div>
-  </a>
-
-  <a href="PASTE_YOUR_RESUME_LINK_HERE" target="_blank" class="contact-3d-item">
-  <div class="contact-3d-inner">
-    <i class="fas fa-file-pdf"></i>
-    <div>
-      <span class="contact-type">Resume</span>
-      <span class="contact-val">View Resume</span>
     </div>
   </div>
-</a>
+</section>
+<!-- CONTACT SECTION -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <p class="section-label">Connect</p>
+    <h2 class="section-title">GET IN TOUCH</h2>
+    
+    <div class="contact-layout">
+      <!-- Left: Futuristic Contact Form -->
+      <div class="contact-form-container glass-card">
+        <div class="tech-corner tl"></div>
+        <div class="tech-corner tr"></div>
+        <div class="tech-corner bl"></div>
+        <div class="tech-corner br"></div>
+        
+        <div class="form-header">
+          <span class="sys-status">[SYS: ONLINE]</span>
+          <h3>SEND A MESSAGE</h3>
+        </div>
+        
+        <!-- Terminal log outputs -->
+        <div class="terminal-log" id="terminalLog">
+          <div class="log-line">> Ready... Please fill out the form to send a message.</div>
+        </div>
+        
+        <form class="futuristic-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="98729351-85ca-4e89-9cfb-37ac40ea61dd">
+          
+          <div class="form-group">
+            <input type="text" id="name" name="name" required placeholder=" " autocomplete="off">
+            <label for="name">Your Name</label>
+            <span class="focus-border"></span>
+          </div>
+          
+          <div class="form-group">
+            <input type="email" id="email" name="email" required placeholder=" " autocomplete="off">
+            <label for="email">Your Email</label>
+            <span class="focus-border"></span>
+          </div>
+          
+          <div class="form-group">
+            <input type="text" id="subject" name="subject" required placeholder=" " autocomplete="off">
+            <label for="subject">Subject</label>
+            <span class="focus-border"></span>
+          </div>
+          
+          <div class="form-group">
+            <textarea id="message" name="message" required placeholder=" " rows="4"></textarea>
+            <label for="message">Your Message...</label>
+            <span class="focus-border"></span>
+          </div>
+          
+          <button type="submit" class="btn-transmit">
+            <span class="btn-text">SEND MESSAGE</span>
+            <span class="btn-glitch"></span>
+          </button>
+        </form>
+      </div>
 
-</div>
+      <!-- Right: Existing Contact 3D Grid -->
+      <div class="contact-grid-container">
+        <div class="contact-3d-grid">
+          <!-- Email -->
+          <a href="mailto:mayankpatelmehta@gmail.com" class="contact-3d-item">
+            <div class="contact-3d-inner glass-card">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <span class="contact-type">Mail</span>
+                <span class="contact-val">mayankpatelmehta@gmail.com</span>
+              </div>
+            </div>
+          </a>
+        
+          <!-- Phone -->
+          <a href="tel:+919878089375" class="contact-3d-item">
+            <div class="contact-3d-inner glass-card">
+              <i class="fas fa-phone"></i>
+              <div>
+                <span class="contact-type">Phone</span>
+                <span class="contact-val">+91 98780 89375</span>
+              </div>
+            </div>
+          </a>
+        
+          <!-- GitHub -->
+          <a href="https://github.com/Mayankpatel-10" target="_blank" class="contact-3d-item">
+            <div class="contact-3d-inner glass-card">
+              <i class="fab fa-github"></i>
+              <div>
+                <span class="contact-type">GitHub</span>
+                <span class="contact-val">Mayankpatel-10</span>
+              </div>
+            </div>
+          </a>
+        
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/mayank-patel10" target="_blank" class="contact-3d-item">
+            <div class="contact-3d-inner glass-card">
+              <i class="fab fa-linkedin-in"></i>
+              <div>
+                <span class="contact-type">LinkedIn</span>
+                <span class="contact-val">mayank-patel10</span>
+              </div>
+            </div>
+          </a>
+        
+          <!-- LeetCode -->
+          <a href="https://leetcode.com/u/mynk_1002/" target="_blank" class="contact-3d-item">
+            <div class="contact-3d-inner glass-card">
+              <i class="fas fa-code"></i>
+              <div>
+                <span class="contact-type">LeetCode</span>
+                <span class="contact-val">mynk_1002</span>
+              </div>
+            </div>
+          </a>
+        
+          <a href="PASTE_YOUR_RESUME_LINK_HERE" target="_blank" class="contact-3d-item">
+            <div class="contact-3d-inner glass-card">
+              <i class="fas fa-file-pdf"></i>
+              <div>
+                <span class="contact-type">Resume</span>
+                <span class="contact-val">View Resume</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- FOOTER -->
 <footer>
