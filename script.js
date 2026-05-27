@@ -563,12 +563,12 @@ function initHero3DPC() {
     let z2 = v.x * sinY + z1 * cosY;
     
     // Perspective scale
-    let distance = 2.2;
+    let distance = 1.6;
     let scale = 1 / (z2 + distance);
     
     return {
       x: x2 * scale * sizeFactor + centerX,
-      y: -y1 * scale * sizeFactor + centerY + (sizeFactor * 0.14),
+      y: -y1 * scale * sizeFactor + centerY + (sizeFactor * 0.08),
       z: z2,
       scale: scale
     };
@@ -634,7 +634,7 @@ function initHero3DPC() {
     
     const centerX = width / 2;
     const centerY = height / 2;
-    const sizeFactor = Math.min(width, height) * 0.52;
+    const sizeFactor = Math.min(width, height) * 0.85;
     
     // Project all structures helper
     function projectGroup(pts) {
