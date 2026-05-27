@@ -417,21 +417,21 @@ function initHero3DPC() {
     // 3D Office Table (Tabletop and Legs)
     table: {
       top: [
-        {x: -1.3, y: -0.65, z: -0.6}, // 0: Top Front Left
-        {x:  1.3, y: -0.65, z: -0.6}, // 1: Top Front Right
-        {x:  1.2, y: -0.65, z:  0.4}, // 2: Top Back Right
-        {x: -1.2, y: -0.65, z:  0.4}, // 3: Top Back Left
+        {x: -1.1, y: -0.65, z: -0.6}, // 0: Top Front Left
+        {x:  1.1, y: -0.65, z: -0.6}, // 1: Top Front Right
+        {x:  1.0, y: -0.65, z:  0.4}, // 2: Top Back Right
+        {x: -1.0, y: -0.65, z:  0.4}, // 3: Top Back Left
         
-        {x: -1.3, y: -0.69, z: -0.58}, // 4: Bottom Front Left
-        {x:  1.3, y: -0.69, z: -0.58}, // 5: Bottom Front Right
-        {x:  1.2, y: -0.69, z:  0.38}, // 6: Bottom Back Right
-        {x: -1.2, y: -0.69, z:  0.38}  // 7: Bottom Back Left
+        {x: -1.1, y: -0.69, z: -0.58}, // 4: Bottom Front Left
+        {x:  1.1, y: -0.69, z: -0.58}, // 5: Bottom Front Right
+        {x:  1.0, y: -0.69, z:  0.38}, // 6: Bottom Back Right
+        {x: -1.0, y: -0.69, z:  0.38}  // 7: Bottom Back Left
       ],
       legs: [
-        { start: {x: -1.18, y: -0.69, z: -0.48}, end: {x: -1.18, y: -1.35, z: -0.48} }, // Front Left
-        { start: {x:  1.18, y: -0.69, z: -0.48}, end: {x:  1.18, y: -1.35, z: -0.48} }, // Front Right
-        { start: {x:  1.10, y: -0.69, z:  0.32}, end: {x:  1.10, y: -1.35, z:  0.32} }, // Back Right
-        { start: {x: -1.10, y: -0.69, z:  0.32}, end: {x: -1.10, y: -1.35, z:  0.32} }  // Back Left
+        { start: {x: -0.98, y: -0.69, z: -0.48}, end: {x: -0.98, y: -1.35, z: -0.48} }, // Front Left
+        { start: {x:  0.98, y: -0.69, z: -0.48}, end: {x:  0.98, y: -1.35, z: -0.48} }, // Front Right
+        { start: {x:  0.90, y: -0.69, z:  0.32}, end: {x:  0.90, y: -1.35, z:  0.32} }, // Back Right
+        { start: {x: -0.90, y: -0.69, z:  0.32}, end: {x: -0.90, y: -1.35, z:  0.32} }  // Back Left
       ]
     },
     // Monitor (Centered slightly left at X = -0.2)
@@ -637,7 +637,7 @@ function initHero3DPC() {
     
     return {
       x: x2 * scale * sizeFactor + centerX,
-      y: -y1 * scale * sizeFactor + centerY + (sizeFactor * 0.15),
+      y: -y1 * scale * sizeFactor + centerY - (sizeFactor * 0.16),
       z: z2,
       scale: scale
     };
@@ -715,8 +715,8 @@ function initHero3DPC() {
     }
     
     const centerX = width / 2;
-    const centerY = height / 2;
-    const sizeFactor = Math.min(width, height) * 0.85;
+      const centerY = height / 2;
+      const sizeFactor = Math.min(width, height) * 0.52;
     
     // Project all structures helper
     function projectGroup(pts) {
