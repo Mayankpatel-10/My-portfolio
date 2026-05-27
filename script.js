@@ -428,27 +428,27 @@ function initHero3DPC() {
         {x: -1.0, y: -0.69, z:  0.38}  // 7: Bottom Back Left
       ]
     },
-    // Studio Monitor Speakers
+    // Studio Monitor Speakers (Shifted slightly inward to fit at larger scale)
     speakers: {
       left: [
-        {x: -0.98, y: -0.65, z: -0.31}, // 0: BLF
-        {x: -0.86, y: -0.65, z: -0.31}, // 1: BRF
-        {x: -0.86, y: -0.65, z: -0.19}, // 2: BRB
-        {x: -0.98, y: -0.65, z: -0.19}, // 3: BLB
-        {x: -0.98, y: -0.45, z: -0.31}, // 4: TLF
-        {x: -0.86, y: -0.45, z: -0.31}, // 5: TRF
-        {x: -0.86, y: -0.45, z: -0.19}, // 6: TRB
-        {x: -0.98, y: -0.45, z: -0.19}  // 7: TLB
+        {x: -0.94, y: -0.65, z: -0.31}, // 0: BLF
+        {x: -0.82, y: -0.65, z: -0.31}, // 1: BRF
+        {x: -0.82, y: -0.65, z: -0.19}, // 2: BRB
+        {x: -0.94, y: -0.65, z: -0.19}, // 3: BLB
+        {x: -0.94, y: -0.45, z: -0.31}, // 4: TLF
+        {x: -0.82, y: -0.45, z: -0.31}, // 5: TRF
+        {x: -0.82, y: -0.45, z: -0.19}, // 6: TRB
+        {x: -0.94, y: -0.45, z: -0.19}  // 7: TLB
       ],
       right: [
-        {x: 0.58, y: -0.65, z: -0.31}, // 0: BLF
-        {x: 0.70, y: -0.65, z: -0.31}, // 1: BRF
-        {x: 0.70, y: -0.65, z: -0.19}, // 2: BRB
-        {x: 0.58, y: -0.65, z: -0.19}, // 3: BLB
-        {x: 0.58, y: -0.45, z: -0.31}, // 4: TLF
-        {x: 0.70, y: -0.45, z: -0.31}, // 5: TRF
-        {x: 0.70, y: -0.45, z: -0.19}, // 6: TRB
-        {x: 0.58, y: -0.45, z: -0.19}  // 7: TLB
+        {x: 0.56, y: -0.65, z: -0.31}, // 0: BLF
+        {x: 0.68, y: -0.65, z: -0.31}, // 1: BRF
+        {x: 0.68, y: -0.65, z: -0.19}, // 2: BRB
+        {x: 0.56, y: -0.65, z: -0.19}, // 3: BLB
+        {x: 0.56, y: -0.45, z: -0.31}, // 4: TLF
+        {x: 0.68, y: -0.45, z: -0.31}, // 5: TRF
+        {x: 0.68, y: -0.45, z: -0.19}, // 6: TRB
+        {x: 0.56, y: -0.45, z: -0.19}  // 7: TLB
       ]
     },
     // Monitor (Centered slightly left at X = -0.2)
@@ -499,18 +499,20 @@ function initHero3DPC() {
         {x: -0.40, y: -0.65, z:  0.22}  // 7: Base Back Left
       ]
     },
-    // PC Tower Cabinet (placed on the right side)
+    // PC Tower Cabinet (with modern chamfered glass front-left corner)
     cabinet: {
       box: [
-        {x: 0.78, y: -0.65, z: -0.20}, // 0: Bottom-left-front
-        {x: 1.12, y: -0.65, z: -0.20}, // 1: Bottom-right-front
-        {x: 1.12, y: -0.65, z:  0.35}, // 2: Bottom-right-back
-        {x: 0.78, y: -0.65, z:  0.35}, // 3: Bottom-left-back
+        {x: 0.84, y: -0.65, z: -0.20}, // 0: Bottom Front-Left Inner (chamfer start)
+        {x: 1.12, y: -0.65, z: -0.20}, // 1: Bottom Front-Right
+        {x: 1.12, y: -0.65, z:  0.35}, // 2: Bottom Back-Right
+        {x: 0.78, y: -0.65, z:  0.35}, // 3: Bottom Back-Left
+        {x: 0.78, y: -0.65, z: -0.12}, // 4: Bottom Front-Left Outer (chamfer end)
         
-        {x: 0.78, y:  0.20, z: -0.20}, // 4: Top-left-front
-        {x: 1.12, y:  0.20, z: -0.20}, // 5: Top-right-front
-        {x: 1.12, y:  0.20, z:  0.35}, // 6: Top-right-back
-        {x: 0.78, y:  0.20, z:  0.35}  // 7: Top-left-back
+        {x: 0.84, y:  0.20, z: -0.20}, // 5: Top Front-Left Inner
+        {x: 1.12, y:  0.20, z: -0.20}, // 6: Top Front-Right
+        {x: 1.12, y:  0.20, z:  0.35}, // 7: Top Back-Right
+        {x: 0.78, y:  0.20, z:  0.35}, // 8: Top Back-Left
+        {x: 0.78, y:  0.20, z: -0.12}  // 9: Top Front-Left Outer
       ],
       // GPU inside the glass panel
       gpu: [
@@ -526,8 +528,13 @@ function initHero3DPC() {
       ],
       // Cooling fans (front-facing)
       fans: [
-        {x: 0.95, y: -0.12, z: -0.20}, // Fan 1 (Front top)
-        {x: 0.95, y: -0.42, z: -0.20}  // Fan 2 (Front bottom)
+        {x: 0.98, y: -0.12, z: -0.20}, // Fan 1 (Front top)
+        {x: 0.98, y: -0.42, z: -0.20}  // Fan 2 (Front bottom)
+      ],
+      // Top Radiator Exhaust Fans
+      topFans: [
+        {x: 0.95, y: 0.20, z: 0.05},
+        {x: 0.95, y: 0.20, z: 0.22}
       ],
       // GPU cooling fans (facing outwards)
       gpuFans: [
@@ -649,12 +656,12 @@ function initHero3DPC() {
     let z2 = v.x * sinY + z1 * cosY;
     
     // Perspective scale
-    let distance = 1.75;
+    let distance = 2.0;
     let scale = 1 / (z2 + distance);
     
     return {
       x: x2 * scale * sizeFactor + centerX,
-      y: -y1 * scale * sizeFactor + centerY - (sizeFactor * 0.16),
+      y: -y1 * scale * sizeFactor + centerY - (sizeFactor * 0.05),
       z: z2,
       scale: scale
     };
@@ -731,9 +738,9 @@ function initHero3DPC() {
       textScrollIndex = (textScrollIndex + 1) % terminalLogs.length;
     }
     
-    const centerX = width / 2;
-      const centerY = height / 2;
-      const sizeFactor = Math.min(width, height) * 0.52;
+    const sizeFactor = Math.min(width, height) * 0.72;
+    const centerX = width / 2 - (sizeFactor * 0.04);
+    const centerY = height / 2;
     
     // Project all structures helper
     function projectGroup(pts) {
@@ -981,8 +988,8 @@ function initHero3DPC() {
       ctx.stroke();
     };
 
-    drawSpeaker(components.speakers.left, {x: -0.92, y: -0.56, z: -0.31}, {x: -0.92, y: -0.48, z: -0.31});
-    drawSpeaker(components.speakers.right, {x: 0.64, y: -0.56, z: -0.31}, {x: 0.64, y: -0.48, z: -0.31});
+    drawSpeaker(components.speakers.left, {x: -0.88, y: -0.56, z: -0.31}, {x: -0.88, y: -0.48, z: -0.31});
+    drawSpeaker(components.speakers.right, {x: 0.62, y: -0.56, z: -0.31}, {x: 0.62, y: -0.48, z: -0.31});
 
     // 5. Draw Monitor Stand Base & Neck
     const pStand = projectGroup(components.monitor.stand);
@@ -1010,37 +1017,39 @@ function initHero3DPC() {
     ctx.fill();
     ctx.stroke();
 
-    // 6. Draw PC Tower Cabinet (CPU)
+    // 6. Draw PC Tower Cabinet (CPU with chamfered glass front-left corner)
     const pCab = projectGroup(components.cabinet.box);
     ctx.fillStyle = 'rgba(10, 10, 15, 0.8)';
     ctx.strokeStyle = 'rgba(124, 58, 237, 0.65)';
     ctx.lineWidth = 1.5;
     
-    // Bottom cover fill
+    // Bottom cover fill (5-sided polygon due to chamfered front-left corner)
     ctx.beginPath();
     ctx.moveTo(pCab[0].x, pCab[0].y);
     ctx.lineTo(pCab[1].x, pCab[1].y);
     ctx.lineTo(pCab[2].x, pCab[2].y);
     ctx.lineTo(pCab[3].x, pCab[3].y);
+    ctx.lineTo(pCab[4].x, pCab[4].y);
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
     
-    // Top cover fill
+    // Top cover fill (5-sided polygon)
     ctx.beginPath();
-    ctx.moveTo(pCab[4].x, pCab[4].y);
-    ctx.lineTo(pCab[5].x, pCab[5].y);
+    ctx.moveTo(pCab[5].x, pCab[5].y);
     ctx.lineTo(pCab[6].x, pCab[6].y);
     ctx.lineTo(pCab[7].x, pCab[7].y);
+    ctx.lineTo(pCab[8].x, pCab[8].y);
+    ctx.lineTo(pCab[9].x, pCab[9].y);
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
 
-    // Vertical structural pillars
+    // Vertical structural pillars (5 pillars)
     ctx.beginPath();
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
       ctx.moveTo(pCab[i].x, pCab[i].y);
-      ctx.lineTo(pCab[i+4].x, pCab[i+4].y);
+      ctx.lineTo(pCab[i+5].x, pCab[i+5].y);
     }
     ctx.stroke();
 
@@ -1075,6 +1084,90 @@ function initHero3DPC() {
       ctx.stroke();
     }
     ctx.shadowBlur = 0; // reset
+
+    // 6.25 CPU Liquid Cooler (AIO Block & Glowing Coolant Tubes)
+    let pCpuBlock = project({x: 1.10, y: -0.18, z: 0.12}, rotX, rotY, centerX, centerY, sizeFactor);
+    ctx.strokeStyle = 'rgba(34, 211, 238, 0.85)';
+    ctx.fillStyle = 'rgba(12, 12, 18, 0.9)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(pCpuBlock.x, pCpuBlock.y, 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+
+    // AIO Tubes
+    ctx.strokeStyle = 'rgba(34, 211, 238, 0.7)';
+    ctx.lineWidth = 2.0;
+    
+    let tube1_start = {x: 1.10, y: -0.18, z: 0.12};
+    let tube1_cp1 = {x: 0.96, y: -0.18, z: 0.25};
+    let tube1_cp2 = {x: 0.86, y: 0.08, z: 0.25};
+    let tube1_end = {x: 0.92, y: 0.20, z: 0.12};
+    
+    let pT1_s = project(tube1_start, rotX, rotY, centerX, centerY, sizeFactor);
+    let pT1_c1 = project(tube1_cp1, rotX, rotY, centerX, centerY, sizeFactor);
+    let pT1_c2 = project(tube1_cp2, rotX, rotY, centerX, centerY, sizeFactor);
+    let pT1_e = project(tube1_end, rotX, rotY, centerX, centerY, sizeFactor);
+    
+    ctx.beginPath();
+    ctx.moveTo(pT1_s.x, pT1_s.y);
+    ctx.bezierCurveTo(pT1_c1.x, pT1_c1.y, pT1_c2.x, pT1_c2.y, pT1_e.x, pT1_e.y);
+    ctx.stroke();
+
+    let tube2_start = {x: 1.10, y: -0.15, z: 0.10};
+    let tube2_cp1 = {x: 0.96, y: -0.15, z: 0.22};
+    let tube2_cp2 = {x: 0.86, y: 0.10, z: 0.22};
+    let tube2_end = {x: 0.95, y: 0.20, z: 0.10};
+    
+    let pT2_s = project(tube2_start, rotX, rotY, centerX, centerY, sizeFactor);
+    let pT2_c1 = project(tube2_cp1, rotX, rotY, centerX, centerY, sizeFactor);
+    let pT2_c2 = project(tube2_cp2, rotX, rotY, centerX, centerY, sizeFactor);
+    let pT2_e = project(tube2_end, rotX, rotY, centerX, centerY, sizeFactor);
+    
+    ctx.beginPath();
+    ctx.moveTo(pT2_s.x, pT2_s.y);
+    ctx.bezierCurveTo(pT2_c1.x, pT2_c1.y, pT2_c2.x, pT2_c2.y, pT2_e.x, pT2_e.y);
+    ctx.stroke();
+
+    // Top Radiator Exhaust Fans
+    components.cabinet.topFans.forEach(fCenter => {
+      let pCenter = project(fCenter, rotX, rotY, centerX, centerY, sizeFactor);
+      
+      // Fan outer ring (XZ plane)
+      ctx.strokeStyle = 'rgba(34, 211, 238, 0.5)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      let steps = 12;
+      for (let s = 0; s <= steps; s++) {
+        let theta = (s / steps) * Math.PI * 2;
+        let ringPt = {
+          x: fCenter.x + 0.05 * Math.cos(theta),
+          y: fCenter.y,
+          z: fCenter.z + 0.05 * Math.sin(theta)
+        };
+        let pRing = project(ringPt, rotX, rotY, centerX, centerY, sizeFactor);
+        if (s === 0) ctx.moveTo(pRing.x, pRing.y);
+        else ctx.lineTo(pRing.x, pRing.y);
+      }
+      ctx.stroke();
+
+      // Rotating blades
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
+      ctx.lineWidth = 1.2;
+      for (let j = 0; j < 3; j++) {
+        let angle = fanAngle + (j * (Math.PI * 2 / 3));
+        let bladeEnd = {
+          x: fCenter.x + 0.045 * Math.cos(angle),
+          y: fCenter.y,
+          z: fCenter.z + 0.045 * Math.sin(angle)
+        };
+        let pEnd = project(bladeEnd, rotX, rotY, centerX, centerY, sizeFactor);
+        ctx.beginPath();
+        ctx.moveTo(pCenter.x, pCenter.y);
+        ctx.lineTo(pEnd.x, pEnd.y);
+        ctx.stroke();
+      }
+    });
 
     // 6.3 GPU Outline inside Cabinet
     const pGpu = projectGroup(components.cabinet.gpu);
