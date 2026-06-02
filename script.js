@@ -282,6 +282,9 @@ function initContactForm() {
     
     const name = nameInput.value;
     
+    // Capture form data BEFORE disabling inputs (disabled fields are excluded from FormData)
+    const formData = new FormData(form);
+    
     btn.disabled = true;
     nameInput.disabled = true;
     emailInput.disabled = true;
@@ -321,7 +324,6 @@ function initContactForm() {
     btnText.textContent = 'SENDING...';
     
     try {
-      const formData = new FormData(form);
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: formData

@@ -813,6 +813,40 @@ section {
   position: relative;
   padding: 8rem 4rem 6rem;
   z-index: 1;
+  overflow: hidden;
+}
+
+/* Floating background glow orbs for premium volcanic theme */
+.contact-section::before,
+.contact-section::after {
+  content: '';
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.8;
+  mix-blend-mode: screen;
+}
+.contact-section::before {
+  bottom: -5%;
+  left: 5%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+  filter: blur(85px);
+  animation: float-glow 8s ease-in-out infinite alternate;
+}
+.contact-section::after {
+  top: 10%;
+  right: 5%;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.12) 0%, transparent 70%);
+  filter: blur(85px);
+  animation: float-glow 8s ease-in-out infinite alternate-reverse 2s;
+}
+
+@keyframes float-glow {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, -30px) scale(1.15); }
 }
 
 .contact-layout {
@@ -969,55 +1003,59 @@ section {
 .form-group textarea:not(:placeholder-shown) ~ label {
   top: -10px;
   left: 0.8rem;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: var(--accent);
-  background: var(--bg);
-  padding: 0 0.4rem;
+  background: #0d0d13; /* match glass card background */
+  padding: 0 0.5rem;
   border-radius: 4px;
-  border: 1px solid rgba(34, 211, 238, 0.25);
+  border: none;
+  letter-spacing: 0.05em;
+  font-weight: 600;
 }
 
 .btn-transmit {
   width: 100%;
   padding: 1.1rem;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  border: none;
+  background: transparent;
+  border: 1px solid var(--accent);
   border-radius: 12px;
-  color: var(--white);
+  color: var(--accent);
   font-family: 'Orbitron', monospace;
   font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 15px rgba(34, 211, 238, 0.1);
+  z-index: 1;
 }
 
 .btn-transmit::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-  transition: left 0.6s ease;
+  inset: 0;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: -1;
 }
 
 .btn-transmit:hover::before {
-  left: 100%;
+  transform: translateX(0);
 }
 
 .btn-transmit:hover {
-  transform: translateY(-2px);
+  color: var(--white);
+  border-color: transparent;
   box-shadow: 
-    0 6px 25px rgba(124, 58, 237, 0.4),
-    0 0 15px rgba(34, 211, 238, 0.3);
+    0 8px 25px rgba(34, 211, 238, 0.45),
+    0 0 15px rgba(124, 58, 237, 0.3);
+  transform: translateY(-2px);
 }
 
 .btn-transmit:active {
@@ -1053,6 +1091,10 @@ section {
   min-height: 170px;
   justify-content: center;
   overflow: hidden;
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  background: rgba(10, 10, 15, 0.45);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .contact-3d-inner::before {
@@ -1068,17 +1110,34 @@ section {
   z-index: -1;
 }
 
+.contact-3d-inner::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
 .contact-3d-inner:hover {
-  border-color: var(--accent);
-  box-shadow: 
-    0 15px 30px rgba(34, 211, 238, 0.15),
-    0 0 20px rgba(124, 58, 237, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: rgba(34, 211, 238, 0.45);
   transform: translateY(-5px);
+  box-shadow: 
+    0 15px 35px rgba(34, 211, 238, 0.15),
+    0 0 20px rgba(124, 58, 237, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .contact-3d-inner:hover::before {
   opacity: 1;
+}
+
+.contact-3d-inner:hover::after {
+  transform: scaleX(1);
 }
 
 .contact-3d-inner i {
