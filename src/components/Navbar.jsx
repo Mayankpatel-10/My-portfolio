@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import userPhoto from '../assets/user_photo.png';
+
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -71,8 +73,20 @@ const Navbar = () => {
 
   return (
     <nav>
-      <a href="#" className="nav-logo" onClick={(e) => handleNavLinkClick(e, '#')}>
-        MAYANK
+      <a href="#" className="nav-logo" onClick={(e) => handleNavLinkClick(e, '#')} style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+        <img 
+          src={userPhoto} 
+          alt="Mayank Patel" 
+          style={{ 
+            width: '32px', 
+            height: '32px', 
+            borderRadius: '50%', 
+            border: '2px solid var(--amber)',
+            boxShadow: '0 0 10px var(--amber)',
+            objectFit: 'cover'
+          }} 
+        />
+        <span>MAYANK</span>
       </a>
 
       <ul className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
