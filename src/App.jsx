@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ParticleBackground from './components/ParticleBackground';
+import DotField from './components/DotField';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -44,8 +44,25 @@ function App() {
 
   return (
     <>
-      {/* Dynamic 2D Canvas background particle connection mesh */}
-      <ParticleBackground />
+      {/* Dynamic 2D/3D DotField Background */}
+      <div style={{
+        position: 'fixed',
+        inset: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: -1,
+        pointerEvents: 'none',
+        background: '#000000'
+      }}>
+        <DotField
+          dotRadius={1.5}
+          dotSpacing={14}
+          bulgeStrength={65}
+          glowRadius={160}
+          sparkle={true}
+          waveAmplitude={0}
+        />
+      </div>
 
       {/* Futuristic screen scanline static overlays */}
       <div className="noise"></div>

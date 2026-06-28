@@ -1,0 +1,82 @@
+.lanyard-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.lanyard-title-container {
+  position: absolute;
+  top: 8%;
+  left: 5%;
+  z-index: 10;
+  max-width: 480px;
+  pointer-events: none;
+  font-family: var(--font-primary);
+}
+
+.lanyard-title-container .section-label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.lanyard-title-container .section-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.1;
+}
+
+.lanyard-title-container .section-subtitle {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.lanyard-canvas-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+}
+
+.lanyard-canvas-container:active {
+  cursor: grabbing;
+}
+
+.lanyard-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .lanyard-title-container {
+    left: 5%;
+    top: 6%;
+    max-width: 90%;
+  }
+  .lanyard-title-container .section-title {
+    font-size: 1.6rem;
+  }
+}

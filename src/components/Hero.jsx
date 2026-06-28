@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { animate } from 'animejs';
-import Hero3D from './Hero3D';
+import Lanyard from './Lanyard';
 
 const Hero = () => {
   const [typedText, setTypedText] = useState('Fullstack Engineer');
@@ -185,7 +185,7 @@ const Hero = () => {
 
       {/* Hero Visual Three.js render frame */}
       <div className="hero-visual">
-        <Hero3D />
+        <Lanyard position={[0, 0, 13.5]} gravity={[0, -35, 0]} fov={14.5} lanyardWidth={1.08} />
       </div>
     </section>
   );
