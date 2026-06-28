@@ -115,7 +115,7 @@ function Band({
 
   useEffect(() => {
     const img = new Image();
-    img.src = '/src/assets/user_photo.png';
+    img.src = '/user_photo.png';
     img.onload = () => setProfileImg(img);
   }, []);
 
